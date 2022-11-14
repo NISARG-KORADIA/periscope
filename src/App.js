@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import Landing from './pages/Landing/Landing';
 import Authenticate from './pages/Authenticate/Authenticate';
 import Activate from './pages/Activate/Activate';
-import Home from './pages/Landing/Landing';
+import Home from './pages/Home/Home';
 import Room from './pages/Room/Room';
 import { useSelector } from 'react-redux';
 import { useLoadingWithRefresh } from './hooks/useLoadingWithRefresh';
@@ -35,9 +35,9 @@ function App() {
           </ActivationRoute>
         } />
         <Route path="/home" element={
-          <UserRoute>
+          // <UserRoute>
             <Home />
-          </UserRoute>
+          // </UserRoute>
         } />
         <Route path="/room/:id" element={
           <UserRoute>
