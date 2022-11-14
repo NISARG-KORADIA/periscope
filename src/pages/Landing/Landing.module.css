@@ -1,17 +1,31 @@
-.wrapper{
-  display: flex;
-  flex-flow: row-reverse;
-  color: var(--primary-text);
-  justify-content: center;
-  align-items: center;
+.imageWrap{
+  object-fit: contain;
+  width: 50%;
 }
 
-@media only screen and (min-width: 768px) {
-  .wrapper{
-    display: flex;
-    flex-flow: row-reverse;
-    color: var(--primary-text);
-    justify-content: center;
-    align-items: center;
-  }
+.contentWrapper{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding-inline: 20%;
+  font-family: 'Nunito';
+  font-style: normal;
+}
+
+.contentWrapper > * {
+  margin-bottom: 30px;
+}
+
+.contentWrapper > div > h1 {
+  line-height: 1.1em;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.contentWrapper > div > p {
+  line-height: 1.3em;
+  font-size: 1.1rem;
+  font-weight: 600;
 }

@@ -37,6 +37,13 @@ button {
   outline: none;
   cursor: pointer;
   font-family: "Nunito", sans-serif;
+  font-weight: bold;
+}
+
+body {
+  background: #121212;
+  font-family: "Nunito", sans-serif;
+  color: #ffffff;
 }
 
 .container {

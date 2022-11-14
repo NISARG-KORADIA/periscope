@@ -1,12 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/shared/Button/Button";
-import Card from "../../components/shared/Card/Card";
 import styles from "./Landing.module.css";
-import { ReactComponent as LandingPageIllustration } from "../../svgs/landingPage.svg";
 import AuthLayout from "../../layout/AuthLayout/AuthLayout";
-
-//if user is not logged in then this is going to be it's landing page and on the click of button he will be redirected to authentication page.
 
 const Landing = () => {
   const navigate = useNavigate();
@@ -17,7 +13,19 @@ const Landing = () => {
 
   return (
     <AuthLayout>
-      <button>Let's get started</button>
+      <div className={styles.contentWrapper}>
+        <img className={styles.imageWrap} src="/images/FullLogo.png" />
+        <div>
+          <h1>An audio only social media platform</h1>
+          <p>
+            With Periscope, It’s like the internet in a box - the perfect place
+            to connect with people and tell your story in full 360 degrees.
+          </p>
+        </div>
+        <div className={styles.buttonWrapper}>
+          <Button text={"Let's get started"} />
+        </div>
+      </div>
     </AuthLayout>
   );
 };
