@@ -1,0 +1,9 @@
+.wrapper{
+  background: var(--background);
+  min-height: 100vh;
+}
+
+.imageWrapper {
+  min-height: 100vh;
+  width: auto;
+}
