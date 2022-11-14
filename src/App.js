@@ -1,25 +1,80 @@
-import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import Landing from './pages/Landing/Landing';
+import Authenticate from './pages/Authenticate/Authenticate';
+import Activate from './pages/Activate/Activate';
+import Home from './pages/Landing/Landing';
+import Room from './pages/Room/Room';
+import { useSelector } from 'react-redux';
+import { useLoadingWithRefresh } from './hooks/useLoadingWithRefresh';
+import Loader from './components/shared/Loader/Loader';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+
+  // const { loading } = useLoadingWithRefresh();
+  const loading = false;
+
+  return loading ? (
+    <Loader message="Loading..." />
+  ) : (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={
+          <PublicRoute>
+            <Landing />
+          </PublicRoute>
+        } />
+        <Route path="/authenticate" element={
+          <PublicRoute>
+            <Authenticate />
+          </PublicRoute>
+        } />
+        <Route path="/activate" element={
+          <ActivationRoute>
+            <Activate />
+          </ActivationRoute>
+        } />
+        <Route path="/home" element={
+          <UserRoute>
+            <Home />
+          </UserRoute>
+        } />
+        <Route path="/room/:id" element={
+          <UserRoute>
+            <Room />
+          </UserRoute>
+        } />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
+const PublicRoute = ({ children }) => {
+  const { isAuth } = useSelector((state) => state.auth);
+  return isAuth ? <Navigate to="/home" replace /> : children;
+};
+
+const ActivationRoute = ({ children }) => {
+  const { user, isAuth } = useSelector((state) => state.auth);
+  if (user?.activated) {
+    return <Navigate to="/home" replace />;
+  } else if (isAuth) {
+    return children;
+  } else {
+    return <Navigate to="/" replace />
+  }
+};
+
+const UserRoute = ({ children }) => {
+  const { user, isAuth } = useSelector((state) => state.auth);
+  if (user?.activated) {
+    return children;
+  } else if (isAuth) {
+    return <Navigate to="/activate" replace />;
+  } else {
+    return <Navigate to="/" replace />;
+  }
+};
+
 export default App;
+
