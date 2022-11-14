@@ -1,9 +1,18 @@
 .wrapper{
   background: var(--background);
-  min-height: 100vh;
+  height: 100vh;    
 }
 
 .imageWrapper {
-  min-height: 100vh;
+  height: 100vh; 
   width: auto;
+  background: var(--alert); 
+}
+
+@media (max-width: 768px) {
+  .imageWrapper {
+    height: 50vh; 
+    width: 100%;
+    background: var(--alert); 
+  }
 }
