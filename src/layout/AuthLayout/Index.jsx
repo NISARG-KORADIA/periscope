@@ -1,9 +1,7 @@
 import React from "react";
 import styles from "./AuthLayout.module.css";
-import { Row, Col } from "antd";
-// import LandingImage from "/images/LandingPage.png";
 
-const Index = ({ children, imageSource }) => {
+const Index = ({ children, imageSource, overlayText }) => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.content}>
@@ -13,6 +11,9 @@ const Index = ({ children, imageSource }) => {
       <div className={styles.illustration}>
         <div className={styles.gradientOverlay} />
         <div className={styles.imageWrap}>
+          {overlayText && (
+            <div className={styles.textOverlay}>{overlayText}</div>
+          )}
           <img className={styles.image} src={imageSource} />
         </div>
       </div>

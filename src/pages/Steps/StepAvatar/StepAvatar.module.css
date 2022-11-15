@@ -33,15 +33,3 @@
 .avatarInput {
   display: none;
 }
-
-p{
-  font-size: 1.7em;
-  line-height: 1em;
-  font-weight: 700;
-  font-family: 'Nunito';
-  margin-bottom: 1.2em;
-}
-
-.buttonWrapper {
-  height: 3.3em;
-}

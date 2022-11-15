@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import Button from "../../../components/shared/Button/Button";
-import styles from "./StepOtp.module.css";
 import { verifyOtp } from "../../../http";
 import { useSelector } from "react-redux";
 import { setAuth } from "../../../store/authSlice";
 import { useDispatch } from "react-redux";
+import AuthBox from "../../../components/shared/AuthBox/AuthBox";
 
 // Client inserts the OTP value we will then send this to server for verification.
 // Upon verification We will redirect the user to thier designated page based on their activation status.
@@ -29,22 +28,12 @@ const StepOtp = ({ onNext }) => {
   }
 
   return (
-    <div className="card shadow-3d rouded-corner bg_secondary">
-      <p className="text_primary">Enter the OTP Recieved</p>
-      <input
-        type="text"
-        placeholder="x x x x"
-        className={`bg_primary_mid rouded-corner shadow-3d-inverse ${styles.input}`}
-      ></input>
-      <div className={styles.buttonWrapper}>
-        <Button
-          text="Next"
-          onClick={submit}
-          buttonColor="bg_primary"
-          textColor="text_white"
-        />
-      </div>
-    </div>
+    <AuthBox
+      title={`Enter the OTP Recieved`}
+      placeHolder="x x x x"
+      buttonLabel="Login / Signup"
+      buttonFunction={submit}
+    />
   );
 };
 
