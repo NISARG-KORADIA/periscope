@@ -1,15 +1,12 @@
-import React, { useState } from 'react';
-import Card from '../../../components/shared/Card/Card';
-import Button from '../../../components/shared/Button/Button';
-import TextInput from '../../../components/shared/TextInput/TextInput';
-import { useDispatch, useSelector } from 'react-redux';
-import { setName } from '../../../store/activateSlice';
-import styles from './StepName.module.css';
+import React, { useState } from "react";
+import Button from "../../../components/shared/Button/Button";
+import { useDispatch, useSelector } from "react-redux";
+import { setName } from "../../../store/activateSlice";
+import styles from "./StepName.module.css";
 
 // Taking input of name and setting it to global state that's it. No server requests.
 
 const StepName = ({ onNext }) => {
-  
   const { name } = useSelector((state) => state.activate);
   const dispatch = useDispatch();
 
@@ -17,28 +14,30 @@ const StepName = ({ onNext }) => {
   const [fullname, setFullname] = useState(name);
 
   function nextStep() {
-      if (!fullname) {
-          return;
-      }
-      dispatch(setName(fullname));
-      onNext();
+    // if (!fullname) {
+    //   return;
+    // }
+    // dispatch(setName(fullname));
+    onNext();
   }
-  
+
   return (
-      <>
-          <Card title="What’s your full name?" icon="/images/goggleEmoji.png">
-              <TextInput
-                  value={fullname}
-                  onChange={(e) => setFullname(e.target.value)}
-              />
-              <p className={styles.paragraph}>
-                  People use real names at codershouse :) !
-              </p>
-              <div>
-                  <Button onClick={nextStep} text="Next" />
-              </div>
-          </Card>
-      </>
+    <div className="card shadow-3d rouded-corner bg_secondary">
+      <p className="text_primary">What should we call you?</p>
+      <input
+        type="text"
+        placeholder="Charmi Amipara"
+        className={`bg_primary_mid rouded-corner shadow-3d-inverse ${styles.input}`}
+      ></input>
+      <div className={styles.buttonWrapper}>
+        <Button
+          text="Continue"
+          onClick={nextStep}
+          buttonColor="bg_primary"
+          textColor="text_white"
+        />
+      </div>
+    </div>
   );
 };
 

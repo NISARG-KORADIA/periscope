@@ -1,18 +1,84 @@
+.logo{
+  overflow: hidden;
+  object-fit: cover;
+  width: 20em;
+  margin-bottom: 3.3em;
+  -webkit-overflow-scrolling: none;
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
 .wrapper{
+  display: flex;    
   background: var(--background);
-  height: 100vh;    
+  height: 100vh;
+  align-items: center;
+  font-size: min(1.8vw, 2vh);
 }
 
-.imageWrapper {
-  height: 100vh; 
-  width: auto;
-  background: var(--alert); 
+.content{
+  display: flex;
+  flex-direction: column;
+  flex: 7;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
 }
 
-@media (max-width: 768px) {
-  .imageWrapper {
-    height: 50vh; 
+.illustration{
+  position: relative;
+  flex: 5;
+  max-height: 100vh;
+}
+
+.imageWrap{
+  position: relative;
+  overflow: hidden;
+  max-height: 100vh;
+}
+
+.image{
+  position: relative  ;
+  top: -30em;
+  object-fit: contain;
+  width: 24em;
+}
+
+@media screen and (max-width: 900px) {
+  .wrapper{
+    flex-direction: column;
+    height: auto;
+  }
+  
+  .content .illustration{
+    flex: 1;
+  }
+
+  .content{
+    margin-top: 10em;
+    margin-bottom: 3em;
+  }
+
+  .gradientOverlay{
+    position: absolute;
+    top: -1px;
+    background: linear-gradient(180deg, rgba(255,255,255,1) 10%, rgba(255,255,255,0) 100%);;
     width: 100%;
-    background: var(--alert); 
+    height: 15vw;
+    z-index: 1;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .content{
+    font-size: 3vw;
+  } 
+  
+  .image{
+    width: 80vw;
+  }
+
+  .gradientOverlay{
+    height: 25vw;
   }
 }

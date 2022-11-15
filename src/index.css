@@ -171,15 +171,6 @@ code {
   text-align: center !important;
 }
 
-.profile_img{
-  border-radius: 50% !important;
-}
-
-.profile_text{
-  display: flex;
-  flex-direction: column;
-}
-
 .theme_btn{
   background-color: var(--powder-orange) !important;
   color: black !important;
@@ -191,6 +182,38 @@ code {
   padding: 0px !important;
   border: none !important;
   border-radius: 8px !important;
+}
+
+/* Custom classes */
+.card {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: space-around;
+  width: 28em;
+  min-height: 17em;
+  padding: 2em;
+}
+
+.shadow-3d {
+  box-shadow: -0.2em 0.2em 0.3em rgb(0 0 0 / 8%), inset -0.1em 0.1em 0.1em rgb(255 255 255 / 30%), inset 0.1em -0.1em 0.2em rgb(0 0 0 / 15%);
+}
+
+.shadow-3d-inverse {
+  box-shadow: inset -0.1em 0.1em 0.1em rgb(0 0 0 / 30%), inset 0.1em -0.1em 0.2em rgb(255 255 255 / 15%);
+}
+
+.rouded-corner {
+  border-radius: min(2.5vw, 2.5vh);
+}
+
+.profile_img{
+  border-radius: 50% !important;
+}
+
+.profile_text{
+  display: flex;
+  flex-direction: column;
 }
 
 /* AntD class Modify */

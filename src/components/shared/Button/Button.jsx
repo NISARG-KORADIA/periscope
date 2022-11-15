@@ -3,15 +3,10 @@ import styles from "./Button.module.css";
 
 // Button component where you have to pass method and button label as an argument.
 
-const Button = ({ text, onClick }) => {
+const Button = ({ text, onClick, buttonColor, textColor }) => {
   return (
-    <button onClick={onClick} className={styles.button}>
-      <span>{text}</span>
-      <img
-        className={styles.btnIcon}
-        src="/images/arrowForward.png"
-        alt="arrow"
-      />
+    <button onClick={onClick} className={`${buttonColor} ${styles.button} shadow-3d rouded-corner`}>
+      <span className={textColor}>{text}</span>
     </button>
   );
 };

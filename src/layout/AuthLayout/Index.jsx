@@ -3,25 +3,20 @@ import styles from "./AuthLayout.module.css";
 import { Row, Col } from "antd";
 // import LandingImage from "/images/LandingPage.png";
 
-const Index = ({ children }) => {
+const Index = ({ children, imageSource }) => {
   return (
-    <Row className={styles.wrapper}>
-      <Col sm={{ span: 24, order: 2 }} md={{ span: 11, order: 1 }}>
+    <div className={styles.wrapper}>
+      <div className={styles.content}>
+        <img className={styles.logo} src="/images/FullLogo.png" />
         {children}
-      </Col>
-      <Col
-        sm={{ span: 24, order: 1 }}
-        md={{ span: 13, order: 2 }}
-        className={styles.imageWrapper}
-        style={{ display: "flex", justifyContent: "center" }}
-      >
-        <img
-          src="/images/LandingPage.png"
-          alt="LandingPage"
-          style={{ height: "100%", width: "auto" }}
-        />
-      </Col>
-    </Row>
+      </div>
+      <div className={styles.illustration}>
+        <div className={styles.gradientOverlay} />
+        <div className={styles.imageWrap}>
+          <img className={styles.image} src={imageSource} />
+        </div>
+      </div>
+    </div>
   );
 };
 

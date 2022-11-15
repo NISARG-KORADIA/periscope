@@ -14,7 +14,7 @@ import { useEffect } from "react";
 
 const StepAvatar = ({ onNext }) => {
   const { name, avatar } = useSelector((state) => state.activate);
-  const [image, setImage] = useState("/images/monkeyAvatar.png");
+  const [image, setImage] = useState("/images/YellowShirtLadyDP.png");
   const [loading, setLoading] = useState(false);
   const [unmounted, setUnmounted] = useState(false);
   const dispatch = useDispatch();
@@ -62,28 +62,34 @@ const StepAvatar = ({ onNext }) => {
   if (loading) return <Loader message="Activating..." />;
 
   return (
-    <>
-      <Card title={`Hi! ${name}`} icon="/images/monkeyEmoji.png">
-        <p className={styles.subHeading}>Upload your photo.</p>
-        <div className={styles.avatarWrapper}>
-          <img className={styles.avatarImage} src={image} alt="avatar" />
+    <div className="card shadow-3d rouded-corner bg_secondary">
+      <p className="text_primary">Let's show your beautiful self!</p>
+      <div className={styles.avatarSection}>
+        <div className={styles.avatarWrap}>
+          <img className={styles.avatar} src={image} alt="avatar" />
+          <div className={styles.imgUploadButton}>
+            <img
+              className={styles.uploadIcon}
+              src="/images/UploadtoCloud.png"
+            />
+          </div>
         </div>
-        <div>
-          <input
-            onChange={captureImage}
-            type="file"
-            id="avatarInput"
-            className={styles.avatarInput}
-          />
-          <label htmlFor="avatarInput" className={styles.avatarLabel}>
-            Choose a different Photo
-          </label>
-        </div>
-        <div>
-          <Button onClick={submit} text="Next" />
-        </div>
-      </Card>
-    </>
+        {/* <input
+          onChange={captureImage}
+          type="file"
+          id="avatarInput"
+          className={styles.avatarInput}
+        /> */}
+      </div>
+      <div className={styles.buttonWrapper}>
+        <Button
+          text="Continue"
+          onClick={submit}
+          buttonColor="bg_primary"
+          textColor="text_white"
+        />
+      </div>
+    </div>
   );
 };
 
