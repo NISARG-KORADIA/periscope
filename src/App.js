@@ -3,11 +3,17 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import Landing from './pages/Landing/Landing';
 import Authenticate from './pages/Authenticate/Authenticate';
 import Activate from './pages/Activate/Activate';
-import Home from './pages/Landing/Landing';
+import Home from './pages/Home/Home';
 import Room from './pages/Room/Room';
 import { useSelector } from 'react-redux';
 import { useLoadingWithRefresh } from './hooks/useLoadingWithRefresh';
 import Loader from './components/shared/Loader/Loader';
+
+const user = {
+  activated: false,
+}
+
+const isAuth = true;
 
 function App() {
 
@@ -50,12 +56,12 @@ function App() {
 }
 
 const PublicRoute = ({ children }) => {
-  const { isAuth } = useSelector((state) => state.auth);
+  // const { isAuth } = useSelector((state) => state.auth);
   return isAuth ? <Navigate to="/home" replace /> : children;
 };
 
 const ActivationRoute = ({ children }) => {
-  const { user, isAuth } = useSelector((state) => state.auth);
+  // const { user, isAuth } = useSelector((state) => state.auth);
   if (user?.activated) {
     return <Navigate to="/home" replace />;
   } else if (isAuth) {
@@ -66,7 +72,7 @@ const ActivationRoute = ({ children }) => {
 };
 
 const UserRoute = ({ children }) => {
-  const { user, isAuth } = useSelector((state) => state.auth);
+  // const { user, isAuth } = useSelector((state) => state.auth);
   if (user?.activated) {
     return children;
   } else if (isAuth) {

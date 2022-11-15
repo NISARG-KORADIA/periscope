@@ -1,10 +1,11 @@
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
-import AddRoomModal from "../../components/AddRoomModal/AddRoomModal";
+import { Row, Col } from "antd";
 import RoomCard from "../../components/RoomCard/RoomCard";
 import { getAllRooms } from "../../http";
 import styles from "./Home.module.css";
+import Layout from "../../layout/Layout/Index";
 
 // const rooms = [
 //   {
@@ -78,47 +79,50 @@ import styles from "./Home.module.css";
 // ];
 
 const Home = () => {
-  const [showModal, setShowModal] = useState(false);
-  const [rooms, setRooms] = useState([]);
+  // const [showModal, setShowModal] = useState(false);
+  // const [rooms, setRooms] = useState([]);
 
-  useEffect(() => {
-    const fetchRooms = async () => {
-      const { data } = await getAllRooms();
-      setRooms(data);
-    };
-    fetchRooms();
-  }, []);
+  // useEffect(() => {
+  //   const fetchRooms = async () => {
+  //     const { data } = await getAllRooms();
+  //     setRooms(data);
+  //   };
+  //   fetchRooms();
+  // }, []);
 
-  function openModal() {
-    setShowModal(true);
-  }
+  // function openModal() {
+  //   setShowModal(true);
+  // }
 
   return (
-    <>
-      <div className="container">
-        <div className={styles.roomsHeader}>
-          <div className={styles.left}>
-            <span className={styles.heading}>All voice rooms</span>
-            <div className={styles.searchBox}>
-              <img src="/images/searchIcon.png" alt="search" />
-              <input type="text" className={styles.searchInput} />
-            </div>
-          </div>
-          <div className={styles.right}>
-            <button onClick={openModal} className={styles.startRoomButton}>
-              <img src="/images/addRoomIcon.png" alt="add-room" />
-              <span>Start a room</span>
-            </button>
-          </div>
-        </div>
-        <div className={styles.roomList}>
-          {rooms.map((room) => (
-            <RoomCard key={room.id} room={room} />
-          ))}
-        </div>
-      </div>
-      {showModal && <AddRoomModal onClose={() => setShowModal(false)} />}
-    </>
+      <Layout>
+        <Row gutter={[16, 16]}>
+          <Col xs={24} sm={24} md={12} lg={8} xl={8}>
+            <RoomCard />
+          </Col>
+          <Col xs={24} sm={24} md={12} lg={8} xl={8}>
+            <RoomCard />
+          </Col>
+          <Col xs={24} sm={24} md={12} lg={8} xl={8}>
+            <RoomCard />
+          </Col>
+          <Col xs={24} sm={24} md={12} lg={8} xl={8}>
+            <RoomCard />
+          </Col>
+          <Col xs={24} sm={24} md={12} lg={8} xl={8}>
+            <RoomCard />
+          </Col>
+          <Col xs={24} sm={24} md={12} lg={8} xl={8}>
+            <RoomCard />
+          </Col>
+          <Col xs={24} sm={24} md={12} lg={8} xl={8}>
+            <RoomCard />
+          </Col>
+          <Col xs={24} sm={24} md={12} lg={8} xl={8}>
+            <RoomCard />
+          </Col>
+        </Row>
+      </Layout>
   );
 };
 
