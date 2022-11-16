@@ -14,7 +14,6 @@ const Landing = () => {
   return (
     <AuthLayout imageSource="/images/LandingPage.png">
       <div className={styles.contentWrapper}>
-        {/* <img className={styles.imageWrap} src="/images/FullLogo.png" /> */}
         <div>
           <h1>
             An audio only social <br /> media platform

@@ -14,7 +14,7 @@ import AuthLayout from "../../../layout/AuthLayout/Index";
 // We are doing many complex task here like uploading image, setting it to global state (c) and then seding all of this information to the server which we
 
 const StepAvatar = ({ onNext }) => {
-  const { name, avatar } = useSelector((state) => state.activate);
+  const { name, avatar, userName } = useSelector((state) => state.activate);
   const [image, setImage] = useState("/images/YellowShirtLadyDP.png");
   const [loading, setLoading] = useState(false);
   const [unmounted, setUnmounted] = useState(false);
@@ -23,7 +23,7 @@ const StepAvatar = ({ onNext }) => {
   function captureImage(e) {
     const file = e.target.files[0];
     const reader = new FileReader();
-
+    console.log(file);
     // readAsDataURL is a function that will convert image into data URL so we can use this to display uploaded image.
     // We are not passing this image file to the image tag because we can't file as source of image tag so we pass and data URL.
     reader.readAsDataURL(file);
@@ -35,18 +35,15 @@ const StepAvatar = ({ onNext }) => {
   }
 
   async function submit() {
-    if (!avatar || !name) return;
+    if (!avatar || !name || !userName) return;
 
     setLoading(true);
-    // Here we will send the post request with name and avatar and wait for server to return the response containing user data.
-    // From the data we will set the user to global state's user. See the auth function.
     try {
       const { data } = await activate({ name, avatar });
 
       if (data.auth && !unmounted) {
         dispatch(setAuth(data));
       }
-      // console.log(data);
     } catch (err) {
       console.log(err);
     } finally {

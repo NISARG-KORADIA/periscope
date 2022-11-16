@@ -1,19 +1,38 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setUserName } from "../../../store/activateSlice";
 import AuthBox from "../../../components/shared/AuthBox/AuthBox";
 import AuthLayout from "../../../layout/AuthLayout/Index";
 
 const StepUsername = ({ onNext }) => {
-  const [userName, setUserName] = useState("");
+  const { userName } = useSelector((state) => state.activate);
+  const dispatch = useDispatch();
+  const [userNameInput, setUserNameInput] = useState(userName);
+
+  function nextStep() {
+    if (!userNameInput) {
+      return;
+    }
+    dispatch(setUserName(userNameInput));
+    onNext();
+  }
+
+  function check(name) {
+    setUserNameInput(name);
+    console.log(userNameInput);
+  }
 
   return (
-    <AuthLayout imageSource="/images/UserNamePage.png" overlayText={userName}>
+    <AuthLayout
+      imageSource="/images/UserNamePage.png"
+      overlayText={userNameInput}
+    >
       <AuthBox
         title="Let’s get a username that's all yours"
         placeHolder="JamesBond007"
         buttonLabel="Continue"
-        inputChange={setUserName}
-        buttonFunction={onNext}
+        inputChange={setUserNameInput}
+        buttonFunction={nextStep}
       />
     </AuthLayout>
   );

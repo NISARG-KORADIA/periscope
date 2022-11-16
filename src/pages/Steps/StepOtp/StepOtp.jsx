@@ -16,11 +16,9 @@ const StepOtp = ({ onNext }) => {
 
   async function submit() {
     if (!otp || !phone || !hash) return;
-    // Here we are making post request and sending the hash we recieved earlier, otp and hash for verification and server will send the user data in response. Which we will set in global state as well as we will set the isAuth to true.
     try {
       const { data } = await verifyOtp({ otp, phone, hash });
-
-      // console.log(data);
+      console.log(data);
       dispatch(setAuth(data));
     } catch (err) {
       console.log(err);
@@ -32,6 +30,7 @@ const StepOtp = ({ onNext }) => {
       title={`Enter the OTP Recieved`}
       placeHolder="x x x x"
       buttonLabel="Login / Signup"
+      inputChange={setOtp}
       buttonFunction={submit}
     />
   );

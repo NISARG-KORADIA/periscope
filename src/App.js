@@ -9,12 +9,6 @@ import { useSelector } from 'react-redux';
 import { useLoadingWithRefresh } from './hooks/useLoadingWithRefresh';
 import Loader from './components/shared/Loader/Loader';
 
-const user = {
-  activated: false,
-}
-
-const isAuth = true;
-
 function App() {
 
   // const { loading } = useLoadingWithRefresh();
@@ -56,12 +50,12 @@ function App() {
 }
 
 const PublicRoute = ({ children }) => {
-  // const { isAuth } = useSelector((state) => state.auth);
+  const { isAuth } = useSelector((state) => state.auth);
   return isAuth ? <Navigate to="/home" replace /> : children;
 };
 
 const ActivationRoute = ({ children }) => {
-  // const { user, isAuth } = useSelector((state) => state.auth);
+  const { user, isAuth } = useSelector((state) => state.auth);
   if (user?.activated) {
     return <Navigate to="/home" replace />;
   } else if (isAuth) {
@@ -72,7 +66,7 @@ const ActivationRoute = ({ children }) => {
 };
 
 const UserRoute = ({ children }) => {
-  // const { user, isAuth } = useSelector((state) => state.auth);
+  const { user, isAuth } = useSelector((state) => state.auth);
   if (user?.activated) {
     return children;
   } else if (isAuth) {
