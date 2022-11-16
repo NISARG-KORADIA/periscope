@@ -177,6 +177,13 @@ code {
   border: none;
   border-radius: 8px !important;
 }
+.blue_btn{
+  background-color: var(--primary-text) !important;
+  color: var(--background) !important;
+  border: none;
+  border-radius: 8px !important;
+  font-weight: 700 !important;
+}
 
 .theme_card{
   padding: 0px !important;

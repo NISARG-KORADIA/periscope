@@ -95,7 +95,8 @@ const Home = () => {
   // }
 
   return (
-      <Layout>
+    <Layout>
+      <div style={{ padding: "1em" }}>
         <Row gutter={[16, 16]}>
           <Col xs={24} sm={24} md={12} lg={8} xl={8}>
             <RoomCard />
@@ -122,7 +123,8 @@ const Home = () => {
             <RoomCard />
           </Col>
         </Row>
-      </Layout>
+      </div>
+    </Layout>
   );
 };
 
