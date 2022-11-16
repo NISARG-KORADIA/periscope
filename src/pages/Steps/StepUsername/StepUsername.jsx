@@ -1,29 +1,40 @@
-import React from "react";
-import Button from "../../../components/shared/Button/Button";
-import styles from "./StepUsername.module.css";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setUserName } from "../../../store/activateSlice";
+import AuthBox from "../../../components/shared/AuthBox/AuthBox";
+import AuthLayout from "../../../layout/AuthLayout/Index";
 
 const StepUsername = ({ onNext }) => {
+  const { userName } = useSelector((state) => state.activate);
+  const dispatch = useDispatch();
+  const [userNameInput, setUserNameInput] = useState(userName);
+
+  function nextStep() {
+    if (!userNameInput) {
+      return;
+    }
+    dispatch(setUserName(userNameInput));
+    onNext();
+  }
+
+  function check(name) {
+    setUserNameInput(name);
+    console.log(userNameInput);
+  }
+
   return (
-    <div className="card shadow-3d rouded-corner bg_secondary">
-      <p className="text_primary">
-        Let’s get a username
-        <br />
-        that's all yours
-      </p>
-      <input
-        type="text"
-        placeholder="JamesBond007"
-        className={`bg_primary_mid rouded-corner shadow-3d-inverse ${styles.input}`}
-      ></input>
-      <div className={styles.buttonWrapper}>
-        <Button
-          text="Continue"
-          onClick={onNext}
-          buttonColor="bg_primary"
-          textColor="text_white"
-        />
-      </div>
-    </div>
+    <AuthLayout
+      imageSource="/images/UserNamePage.png"
+      overlayText={userNameInput}
+    >
+      <AuthBox
+        title="Let’s get a username that's all yours"
+        placeHolder="JamesBond007"
+        buttonLabel="Continue"
+        inputChange={setUserNameInput}
+        buttonFunction={nextStep}
+      />
+    </AuthLayout>
   );
 };
 
