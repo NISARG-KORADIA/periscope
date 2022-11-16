@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import AuthLayout from "../../layout/AuthLayout/Index";
 import StepName from "../Steps/StepName/StepName";
 import StepAvatar from "../Steps/StepAvatar/StepAvatar";
 import StepUsername from "../Steps/StepUsername/StepUsername";
@@ -21,9 +20,7 @@ const Activate = () => {
     setStep(step + 1);
   }
   return (
-    <AuthLayout imageSource="/images/LandingPage.png">
       <Step onNext={onNext}></Step>
-    </AuthLayout>
   );
 };
 

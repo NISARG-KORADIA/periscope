@@ -17,7 +17,7 @@ const Authenticate = () => {
   }
 
   return (
-    <AuthLayout imageSource="/images/LandingPage.png">
+    <AuthLayout imageSource="/images/AuthenticationPage.png">
       <Step onNext={onNext} />
     </AuthLayout>
   );
