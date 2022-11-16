@@ -119,3 +119,37 @@
 /* .micImg {
   
 } */
+.userImg{
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.muteBtn{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 0em;
+  right: 1.5em;
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+  background-color: var(--alert);
+  color: #ffffff;
+}
+
+.unMuteBtn{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 0em;
+  right: 1.5em;
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+  background-color: var(--pastel-green);
+  color: #ffffff;
+}

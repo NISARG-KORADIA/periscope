@@ -19,10 +19,11 @@ const Index = ({ children }) => {
         }}
         style={{ padding: "0.5em" }}
         className="bg_secondary"
+        width={250}
       >
         <LeftNavBar />
       </Sider>
-      <Content style={{ padding: "1em" }}>{children}</Content>
+      <Content >{children}</Content>
     </Layout>
   );
 };
