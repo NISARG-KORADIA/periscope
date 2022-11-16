@@ -9,14 +9,6 @@ const { Text } = Typography;
 const RoomCard = ({ room }) => {
   // const history = useHistory();
 
-  return (
-    <Card className="theme_card">
-      <CardHeader />
-      <CardFooter />
-    </Card>
-  );
-};
-
 const CardHeader = () => (
   <div
     style={{
@@ -109,5 +101,13 @@ const CardFooter = () => (
     </Row>
   </div>
 );
+  return (
+    <Card className="theme_card">
+      <CardHeader />
+      <CardFooter />
+    </Card>
+  );
+};
+
 
 export default RoomCard;

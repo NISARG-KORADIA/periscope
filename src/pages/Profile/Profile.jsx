@@ -65,7 +65,7 @@ const Profile = () => (
     <Col xs={24} sm={24} md={12} lg={8} xl={8}>
       <div>
         <Image
-          width={200}
+          width={180}
           className="profile_img"
           src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
         />

@@ -4,7 +4,8 @@ import Landing from './pages/Landing/Landing';
 import Authenticate from './pages/Authenticate/Authenticate';
 import Activate from './pages/Activate/Activate';
 import Home from './pages/Home/Home';
-import Room from './pages/Room/Room';
+import Room from './pages/Room/NewRooms';
+import Profile from './pages/Profile/Profile';
 import { useSelector } from 'react-redux';
 import { useLoadingWithRefresh } from './hooks/useLoadingWithRefresh';
 import Loader from './components/shared/Loader/Loader';
@@ -35,14 +36,24 @@ function App() {
           </ActivationRoute>
         } />
         <Route path="/home" element={
-          <UserRoute>
+          // <UserRoute>
             <Home />
-          </UserRoute>
+          // </UserRoute>
         } />
         <Route path="/room/:id" element={
           <UserRoute>
             <Room />
           </UserRoute>
+        } />
+        <Route path="/room" element={
+          // <UserRoute>
+            <Room />
+          // </UserRoute>
+        } />
+        <Route path="/profile" element={
+          // <UserRoute>
+            <Profile />
+          // </UserRoute>
         } />
       </Routes>
     </BrowserRouter>

@@ -153,3 +153,10 @@
   background-color: var(--pastel-green);
   color: #ffffff;
 }
+
+.leave_btn {
+  padding: 5px 10px;
+  background-color: var(--primary);
+  border-radius: 8px;
+  width: auto;
+}

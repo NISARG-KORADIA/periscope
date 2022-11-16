@@ -79,49 +79,30 @@ import Layout from "../../layout/Layout/Index";
 // ];
 
 const Home = () => {
-  // const [showModal, setShowModal] = useState(false);
-  // const [rooms, setRooms] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const [rooms, setRooms] = useState([]);
 
-  // useEffect(() => {
-  //   const fetchRooms = async () => {
-  //     const { data } = await getAllRooms();
-  //     setRooms(data);
-  //   };
-  //   fetchRooms();
-  // }, []);
+  useEffect(() => {
+    const fetchRooms = async () => {
+      const { data } = await getAllRooms();
+      setRooms(data);
+    };
+    fetchRooms();
+  }, []);
 
-  // function openModal() {
-  //   setShowModal(true);
-  // }
+  function openModal() {
+    setShowModal(true);
+  }
 
   return (
     <Layout>
       <div style={{ padding: "1em" }}>
         <Row gutter={[16, 16]}>
+        {/* {rooms.map((room) => ( */}
           <Col xs={24} sm={24} md={12} lg={8} xl={8}>
             <RoomCard />
           </Col>
-          <Col xs={24} sm={24} md={12} lg={8} xl={8}>
-            <RoomCard />
-          </Col>
-          <Col xs={24} sm={24} md={12} lg={8} xl={8}>
-            <RoomCard />
-          </Col>
-          <Col xs={24} sm={24} md={12} lg={8} xl={8}>
-            <RoomCard />
-          </Col>
-          <Col xs={24} sm={24} md={12} lg={8} xl={8}>
-            <RoomCard />
-          </Col>
-          <Col xs={24} sm={24} md={12} lg={8} xl={8}>
-            <RoomCard />
-          </Col>
-          <Col xs={24} sm={24} md={12} lg={8} xl={8}>
-            <RoomCard />
-          </Col>
-          <Col xs={24} sm={24} md={12} lg={8} xl={8}>
-            <RoomCard />
-          </Col>
+        {/* ))} */}
         </Row>
       </div>
     </Layout>
