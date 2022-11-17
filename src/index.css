@@ -238,8 +238,17 @@ code {
   background-color: var(--primary-mid) !important;
   border-radius: 8px !important;
   border-right: 0px !important;
+  color: #000000 !important;
 }
-
+.ant-menu-item:active{
+  background-color: transparent !important;
+}
+.ant-menu-item-active{
+  color: #000000 !important;
+}
 .ant-menu-inline .ant-menu-item::after {
   border-right: 0px !important;
+}
+.ant-image-mask {
+  border-radius: 50%;
 }
