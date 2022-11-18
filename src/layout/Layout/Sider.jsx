@@ -9,6 +9,8 @@ import {
   UsergroupAddOutlined,
 } from "@ant-design/icons";
 import styles from "./Layout.module.css";
+import { useDispatch, useSelector } from "react-redux";
+import { roomModalVisible } from "../../store/roomModalSlice";
 
 const { Text } = Typography;
 
@@ -44,15 +46,29 @@ const rooms = [
   },
 ];
 
-const Profile = () => (
+const peers = [
+  {
+    name: "Dean Houle",
+    avatar: "images/Avatar1.png",
+    online: true,
+  },
+  {
+    name: "Melody Row",
+    avatar: "images/Avatar2.png",
+    online: true,
+  },
+  {
+    name: "Will Rehbein",
+    avatar: "images/Avatar3.png",
+    online: false,
+  },
+];
+
+const Profile = ({ image }) => (
   <Row justify="center" style={{ marginBottom: "2em", marginTop: "1em" }}>
     <Col flex={2}>
       <div>
-        <Image
-          width={45}
-          className="profile_img"
-          src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-        />
+        <Image width={45} className="profile_img" src={image} />
         {/* <Avatar /> */}
       </div>
     </Col>
@@ -61,17 +77,24 @@ const Profile = () => (
       <Text className="text_gray text_regular_bold">@mandywillson</Text>
     </Col>
   </Row>
-)
+);
 
 const Sider = () => {
+  const { user } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const showRoomModal = () => {
+    dispatch(roomModalVisible(true));
+  };
+
   return (
     <>
-      <Profile />
+      <Profile image={user.avatar} />
       <Row style={{ marginBottom: "1em" }}>
         <Button
           type="primary"
           className="text_black theme_btn"
           style={{ width: "100%" }}
+          onClick={showRoomModal}
         >
           <UsergroupAddOutlined /> Start a room
         </Button>
@@ -82,7 +105,7 @@ const Sider = () => {
         items={items}
         style={{ marginBottom: "1em" }}
       />
-      <Message />
+      <Message peers={peers} />
     </>
   );
 };

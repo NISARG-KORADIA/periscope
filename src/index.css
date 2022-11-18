@@ -228,11 +228,15 @@ code {
   padding: 0px !important;
   border-radius: 8px !important;
 }
-.ant-menu-inline, .ant-menu-vertical, .ant-menu-vertical-left {
+.ant-menu-inline, .ant-menu-vertical, .ant-menu-vertical-left, .ant-menu-item, .ant-menu-item:not(:last-child){
   border-right: 0px !important;
+  margin-bottom: 0px !important;
+  margin-top: 0px !important;
 }
 .ant-menu {
   border-radius: 8px !important;
+  background: none !important;
+  margin-bottom: 1em !important;
 }
 .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
   background-color: var(--primary-mid) !important;

@@ -23,7 +23,6 @@ const StepAvatar = ({ onNext }) => {
   function captureImage(e) {
     const file = e.target.files[0];
     const reader = new FileReader();
-    console.log(file);
     // readAsDataURL is a function that will convert image into data URL so we can use this to display uploaded image.
     // We are not passing this image file to the image tag because we can't file as source of image tag so we pass and data URL.
     reader.readAsDataURL(file);
@@ -39,8 +38,7 @@ const StepAvatar = ({ onNext }) => {
 
     setLoading(true);
     try {
-      const { data } = await activate({ name, avatar });
-
+      const { data } = await activate({ name, avatar, userName });
       if (data.auth && !unmounted) {
         dispatch(setAuth(data));
       }
