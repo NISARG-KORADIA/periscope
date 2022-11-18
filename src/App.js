@@ -36,9 +36,9 @@ function App() {
           </ActivationRoute>
         } />
         <Route path="/home" element={
-          // <UserRoute>
+          <UserRoute>
             <Home />
-          // </UserRoute>
+          </UserRoute>
         } />
         <Route path="/room/:id" element={
           <UserRoute>
@@ -47,12 +47,12 @@ function App() {
         } />
         <Route path="/room" element={
           // <UserRoute>
-            <Room />
+          <Room />
           // </UserRoute>
         } />
         <Route path="/profile" element={
           // <UserRoute>
-            <Profile />
+          <Profile />
           // </UserRoute>
         } />
       </Routes>

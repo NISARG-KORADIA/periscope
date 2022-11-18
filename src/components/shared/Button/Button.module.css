@@ -10,3 +10,7 @@
   cursor: pointer;
   transition: all 0.3s ease-in-out;
 }
+
+.button:hover{
+  filter: brightness(85%);
+}
