@@ -160,3 +160,11 @@
   border-radius: 8px;
   width: auto;
 }
+
+/* New Class */
+.loadingWrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}

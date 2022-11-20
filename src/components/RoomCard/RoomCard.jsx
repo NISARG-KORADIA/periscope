@@ -1,106 +1,116 @@
 import React from "react";
-// import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { Card, Typography, Tag, Image, Row, Col, Button } from "antd";
 import { UserOutlined } from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
 // import styles from "./RoomCard.module.css";
 
 const { Text } = Typography;
 
 const RoomCard = ({ room }) => {
-  // const history = useHistory();
+  const navigate = useNavigate();
 
-const CardHeader = () => (
-  <div
-    style={{
-      position: "relative",
-      display: "flex",
-      width: "100%",
-      flexDirection: "column",
-      padding: "2em",
-      borderRadius: "8px 8px 0px 0px",
-    }}
-    className="bg_secondary"
-  >
-    <Text className="text_black text_bold" style={{ marginBottom: "1em" }}>
-      How to get into fortune 500
-    </Text>
-    <div style={{ marginBottom: "1em" }}>
-      <Tag className="bg_primary_mid text_primary_dark">#Interview</Tag>
-      <Tag className="bg_primary_mid text_primary_dark">#DSA</Tag>
-      <Tag className="bg_primary_mid text_primary_dark">#Fortune500</Tag>
-    </div>
-    <Text
-      className="text_primary_dark text_regular_bold"
-      style={{
-        position: "absolute",
-        bottom: "0em",
-        marginTop: "1em",
-      }}
-    >
-      Room by Ellen Wheeler
-    </Text>
+  function goToRoom() {
+    // console.log(`/room/${room.id}`);
+    navigate(`/room/${room.id}`);
+  }
+
+  const CardHeader = () => (
     <div
       style={{
-        position: "absolute",
+        position: "relative",
         display: "flex",
-        right: "2em",
-        bottom: "-2em",
+        width: "100%",
+        flexDirection: "column",
+        padding: "2em",
+        borderRadius: "8px 8px 0px 0px",
       }}
+      className="bg_secondary"
     >
-      <Image
-        width={60}
-        className="profile_img"
-        src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-      />
-      {/* <Avatar /> */}
+      <Text className="text_black text_bold" style={{ marginBottom: "1em" }}>
+        {room.topic}
+      </Text>
+      <div style={{ marginBottom: "1em" }}>
+        {room.tags.map((tag) => (
+          <Tag
+            key={tag}
+            className="bg_primary_mid text_primary_dark"
+          >{`#${tag}`}</Tag>
+        ))}
+      </div>
+      <Text
+        className="text_primary_dark text_regular_bold"
+        style={{
+          position: "absolute",
+          bottom: "0em",
+          marginTop: "1em",
+        }}
+      >
+        {`Room by ${room.hostId.name}`}
+      </Text>
+      <div
+        style={{
+          position: "absolute",
+          display: "flex",
+          right: "2em",
+          bottom: "-2em",
+        }}
+      >
+        <Image
+          width={60}
+          className="profile_img"
+          src={room.hostId.avatar}
+          alt="host avatar"
+        />
+      </div>
     </div>
-  </div>
-);
-const CardFooter = () => (
-  <div
-    style={{
-      display: "flex",
-      flexDirection: "column",
-      padding: "2em",
-      borderRadius: "0px 0px 8px 8px",
-    }}
-    className="bg_primary_mid"
-  >
-    <Text
-      className="text_primary_dark text_medium_bold"
-      style={{ marginBottom: "1em" }}
+  );
+  const CardFooter = () => (
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        padding: "2em",
+        borderRadius: "0px 0px 8px 8px",
+      }}
+      className="bg_primary_mid"
     >
-      <UserOutlined />
-      &nbsp;&nbsp;50 listeners
-    </Text>
-    <Row justify="center" align="middle">
-      <Col flex={2}>
-        <div>
-          <Image
-            width={35}
-            className="profile_img"
-            src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-          />
-          <Image
-            style={{ marginLeft: "-0.5em" }}
-            width={35}
-            className="profile_img"
-            src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-          />
-          {/* <Avatar /> */}
-        </div>
-      </Col>
-      <Col flex={5} className="profile_text">
-        <Text className="text_primary_dark text_regular_bold">
-          +5 other speeker
-        </Text>
-      </Col>
-      <Col flex={3} className="profile_text">
-        <Button className="bg_primary text_white blue_btn">Join in</Button>
-      </Col>
-    </Row>
-  </div>
-);
+      <Text
+        className="text_primary_dark text_medium_bold"
+        style={{ marginBottom: "1em" }}
+      >
+        <UserOutlined />
+        {`  ${room.speakers.length} participants`}
+      </Text>
+      <Row justify="center" align="middle">
+        <Col flex={2}>
+          <div>
+            {room.speakers.slice(0, 2).map((speaker) => (
+              <Image
+                key={speaker.id}
+                width={35}
+                className="profile_img"
+                src={speaker.avatar}
+                alt="speaker avatar"
+              />
+            ))}
+          </div>
+        </Col>
+        {room.speakers.length - 2 > 0 && (
+          <Col flex={5} className="profile_text">
+            <Text className="text_primary_dark text_regular_bold">
+              {`+${room.speakers.length - 2} other speeker`}
+            </Text>
+          </Col>
+        )}
+        <Col flex={3} className="profile_text">
+          <Button className="bg_primary text_white blue_btn" onClick={goToRoom}>
+            Join in
+          </Button>
+        </Col>
+      </Row>
+    </div>
+  );
+
   return (
     <Card className="theme_card">
       <CardHeader />
@@ -108,6 +118,5 @@ const CardFooter = () => (
     </Card>
   );
 };
-
 
 export default RoomCard;
