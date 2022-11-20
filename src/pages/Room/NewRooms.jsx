@@ -18,9 +18,9 @@ import styles from "./Room.module.css";
 const { Text } = Typography;
 
 const Room = () => {
-  const { id: roomId } = useParams();
-  const user = useSelector((state) => state.auth.user);
-  const { clients, provideRef, handleMute } = useWebRTC(roomId, user);
+  // const { id: roomId } = useParams();
+  // const user = useSelector((state) => state.auth.user);
+  // const { clients, provideRef, handleMute } = useWebRTC(roomId, user);
   const [room, setRoom] = useState("Title");
   const [isMute, setMute] = useState(true);
   const navigate = useNavigate();
@@ -29,18 +29,92 @@ const Room = () => {
     navigate("/home");
   };
 
-  useEffect(() => {
-    handleMute(isMute, user.id);
-  }, [isMute]);
+  // useEffect(() => {
+  //   handleMute(isMute, user.id);
+  // }, [isMute]);
 
-  useEffect(() => {
-    const fetchRoom = async () => {
-      const { data } = await getRoom(roomId);
-      setRoom((prev) => data.topic);
-    };
+  // useEffect(() => {
+  //   const fetchRoom = async () => {
+  //     const { data } = await getRoom(roomId);
+  //     setRoom((prev) => data.topic);
+  //   };
 
-    fetchRoom();
-  }, [roomId]);
+  //   fetchRoom();
+  // }, [roomId]);
+
+  const speakers = [
+    {
+      id: 1,
+      name: "Dean Houle",
+      avatar: "images/01.png",
+      mute: false,
+    },
+    {
+      id: 2,
+      name: "Melody Row",
+      avatar: "images/02.png",
+      mute: false,
+    },
+    {
+      id: 3,
+      name: "Will Rehbein",
+      avatar: "images/03.png",
+      mute: false,
+    },
+  ]
+
+  const listeners = [
+    {
+      id: 4,
+      name: "Ellen Wheeler",
+      avatar: "images/04.png",
+      mute: true,
+    },
+    {
+      id: 5,
+      name: "John Patrick",
+      avatar: "images/05.png",
+      mute: true,
+    },
+    {
+      id: 6,
+      name: "Dr. Schultz",
+      avatar: "images/06.png",
+      mute: false,
+    },
+    {
+      id: 7,
+      name: "Matilda",
+      avatar: "images/07.png",
+      mute: true,
+    },
+    {
+      id: 8,
+      name: "Magneto",
+      avatar: "images/08.png",
+      mute: true,
+    },
+    {
+      id: 9,
+      name: "Truman Burbank",
+      avatar: "images/01.png",
+      mute: false,
+    }
+  ]
+
+  const user = {
+    id: 4,
+    name: "Ellen Wheeler",
+    avatar: "images/04.png",
+    mute: true,
+  }
+
+  const host = {
+      id: 1,
+      name: "Dean Houle",
+      avatar: "images/01.png",
+      mute: false,
+  }
 
   const handleMuteClick = (clientId) => {
     if (clientId !== user.id) {
@@ -49,7 +123,7 @@ const Room = () => {
     setMute((prev) => !prev);
   };
 
-  const User = (client) => (
+  const User = ({client}) => (
     <div className={styles.userImg} key={client.id}>
       <img
         alt="User Profile"
@@ -60,9 +134,9 @@ const Room = () => {
       <audio
         autoPlay
         playsInline
-        ref={(instance) => {
-          provideRef(instance, client.id);
-        }}
+        // ref={(instance) => {
+        //   provideRef(instance, client.id);
+        // }}
       />
       {client.muted ? (
         <div className={styles.muteBtn}>
@@ -132,8 +206,8 @@ const Room = () => {
               </Text>
               <Row style={{ marginTop: "1em" }}>
                 <Col xs={12} sm={12} md={4} lg={3} xl={3}>
-                  {clients.map((client) => {
-                    return <User client={client} />;
+                  {speakers.map((speaker) => {
+                    return <User key={speaker.id} client={speaker} />;
                   })}
                 </Col>
               </Row>
@@ -150,7 +224,9 @@ const Room = () => {
               </Text>
               <Row style={{ marginTop: "1em" }}>
                 <Col xs={12} sm={12} md={4} lg={3} xl={3}>
-                  <User />
+                {listeners.map((listener) => {
+                    return <User key={listener.id} client={listener} />;
+                  })}
                 </Col>
               </Row>
             </div>

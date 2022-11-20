@@ -49,7 +49,7 @@ const rooms = [
 const peers = [
   {
     name: "Dean Houle",
-    avatar: "images/Avatar1.png",
+    avatar: "images/01.png",
     online: true,
   },
   {
@@ -88,7 +88,7 @@ const Sider = () => {
 
   return (
     <>
-      <Profile image={user.avatar} />
+      <Profile image={user?.avatar} />
       <Row style={{ marginBottom: "1em" }}>
         <Button
           type="primary"

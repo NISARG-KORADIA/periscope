@@ -82,16 +82,16 @@ import { roomModalVisible } from "../../store/roomModalSlice";
 // ];
 
 const Home = () => {
-  const [rooms, setRooms] = useState([]);
+  // const [rooms, setRooms] = useState([]);
   const { roomModalVisibility } = useSelector((state) => state.roomModal);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const fetchRooms = async () => {
-      const { data } = await getAllRooms();
-      setRooms(data);
-    };
-    fetchRooms();
+    // const fetchRooms = async () => {
+    //   const { data } = await getAllRooms();
+    //   setRooms(data);
+    // };
+    // fetchRooms();
   }, []);
 
   function hideModal() {

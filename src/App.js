@@ -36,9 +36,9 @@ function App() {
           </ActivationRoute>
         } />
         <Route path="/home" element={
-          <UserRoute>
+          // <UserRoute>
             <Home />
-          </UserRoute>
+          // </UserRoute>
         } />
         <Route path="/room/:id" element={
           <UserRoute>
