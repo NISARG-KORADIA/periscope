@@ -45,7 +45,7 @@ function App() {
             <Room />
           </UserRoute>
         } />
-        <Route path="/profile" element={
+        <Route path="/profile/:id" element={
           <UserRoute>
             <Profile />
           </UserRoute>
