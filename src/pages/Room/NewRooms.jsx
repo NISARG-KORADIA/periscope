@@ -44,6 +44,80 @@ const Room = () => {
     fetchRoom();
   }, [roomId]);
 
+  const speakers = [
+    {
+      id: 1,
+      name: "Dean Houle",
+      avatar: "images/01.png",
+      mute: false,
+    },
+    {
+      id: 2,
+      name: "Melody Row",
+      avatar: "images/02.png",
+      mute: false,
+    },
+    {
+      id: 3,
+      name: "Will Rehbein",
+      avatar: "images/03.png",
+      mute: false,
+    },
+  ]
+
+  const listeners = [
+    {
+      id: 4,
+      name: "Ellen Wheeler",
+      avatar: "images/04.png",
+      mute: true,
+    },
+    {
+      id: 5,
+      name: "John Patrick",
+      avatar: "images/05.png",
+      mute: true,
+    },
+    {
+      id: 6,
+      name: "Dr. Schultz",
+      avatar: "images/06.png",
+      mute: false,
+    },
+    {
+      id: 7,
+      name: "Matilda",
+      avatar: "images/07.png",
+      mute: true,
+    },
+    {
+      id: 8,
+      name: "Magneto",
+      avatar: "images/08.png",
+      mute: true,
+    },
+    {
+      id: 9,
+      name: "Truman Burbank",
+      avatar: "images/01.png",
+      mute: false,
+    }
+  ]
+
+  // const user = {
+  //   id: 4,
+  //   name: "Ellen Wheeler",
+  //   avatar: "images/04.png",
+  //   mute: true,
+  // }
+
+  const host = {
+      id: 1,
+      name: "Dean Houle",
+      avatar: "images/01.png",
+      mute: false,
+  }
+
   // const handleMuteClick = (clientId) => {
   //   if (clientId !== user.id) {
   //     return;

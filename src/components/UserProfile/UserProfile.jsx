@@ -4,7 +4,7 @@ import { Row, Col, Image, Typography } from "antd";
 const { Text } = Typography;
 
 const UserProfile = ({ name, avatar, online }) => {
-
+  
   return (
     <Row align="middle" style={{ marginBottom: "1em", flexBasis: "row" }}>
       <div style={{ display: "flex", alignItems: "center" }}>

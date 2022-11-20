@@ -22,9 +22,13 @@ const Home = () => {
     fetchRooms();
   }, []);
 
-  function hideModal() {
+  function hideRoomModal() {
     dispatch(roomModalVisible(false));
   }
+
+  const showRoomModal = () => {
+    dispatch(roomModalVisible(true));
+  };
 
   return (
     <>
@@ -38,7 +42,7 @@ const Home = () => {
             ))}
           </Row>
         </div>
-        {roomModalVisibility && <AddRoomModal onClose={hideModal} />}
+        {roomModalVisibility && <AddRoomModal onClose={hideRoomModal} onOpen={showRoomModal}/>}
       </Layout>
     </>
   );

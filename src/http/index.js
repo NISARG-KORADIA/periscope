@@ -23,6 +23,7 @@ export const logout = () => api.post('/api/logout');
 export const createRoom = (data) => api.post('/api/rooms', data);
 export const getAllRooms = () => api.get('/api/rooms');
 export const getRoom = (roomId) => api.get(`/api/room/${roomId}`)
+export const getUser = (userId) => api.get(`/api/user/${userId}`)
 
 // Interceptors will intercepts all the above request which from fontend end to backend.
 api.interceptors.response.use(

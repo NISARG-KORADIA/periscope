@@ -1,5 +1,6 @@
 import React from "react";
 import { Menu, Row, Col, Image, Button, Typography } from "antd";
+import { useNavigate } from "react-router-dom";
 import Messages from "../../components/MessageBox/MessageBox";
 import {
   GlobalOutlined,
@@ -24,22 +25,10 @@ function getItem(label, key, icon) {
 
 const items = [
   getItem("All Rooms", "1", <GlobalOutlined />),
-  getItem("Popular", "2", <TeamOutlined />),
-  getItem("Following", "3", <LineChartOutlined />),
+  getItem("Popular", "2", <LineChartOutlined />),
+  getItem("Following", "3", <TeamOutlined />),
   getItem("Settings", "4", <SettingOutlined />),
 ];
-
-const Profile = ({ image, name, userName }) => (
-  <Row justify="start" style={{ marginBottom: "2em", marginTop: "1em" }}>
-    <Col style={{ marginRight: "2em" }}>
-      <Image width={45} className="profile_img" src={image} />
-    </Col>
-    <Col className="profile_text">
-      <Text className="text_black text_bold">{name}</Text>
-      <Text className="text_gray text_regular_bold">{`@${userName}`}</Text>
-    </Col>
-  </Row>
-);
 
 const Sider = () => {
   const { user } = useSelector((state) => state.auth);
@@ -47,6 +36,27 @@ const Sider = () => {
   const showRoomModal = () => {
     dispatch(roomModalVisible(true));
   };
+  const navigate = useNavigate();
+
+  function goToProfile() {
+    navigate(`/profile/${user.id}`);
+  }
+
+  const Profile = ({ image, name, userName }) => (
+    <Row
+      justify="start"
+      style={{ marginBottom: "2em", marginTop: "1em" }}
+      onClick={goToProfile}
+    >
+      <Col style={{ marginRight: "2em" }}>
+        <Image width={45} className="profile_img" src={image} />
+      </Col>
+      <Col className="profile_text">
+        <Text className="text_black text_bold">{name}</Text>
+        <Text className="text_gray text_regular_bold">{`@${userName}`}</Text>
+      </Col>
+    </Row>
+  );
 
   return (
     <>

@@ -256,3 +256,20 @@ code {
 .ant-image-mask {
   border-radius: 50%;
 }
+
+.ant-modal-content {
+  background-color: var(--primary) !important;
+}
+.ant-modal-header{
+  background-color: var(--primary) !important;
+}
+.ant-input {
+  border: 1px var(--primary-mid) solid !important;
+  border-radius: 8px !important;
+  height: 35px;
+}
+.ant-select .ant-select-selector {
+  border: 1px var(--primary-mid) solid !important;
+  border-radius: 8px !important;
+  height: 35px;
+}
