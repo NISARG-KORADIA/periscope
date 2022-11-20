@@ -1,13 +1,13 @@
 import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Button from "../shared/Button/Button";
 import { createRoom as create } from "../../http";
+import Button from "../shared/Button/Button";
 import styles from "./AddRoomModal.module.css";
 
 const AddRoomModal = ({ onClose }) => {
   const navigate = useNavigate();
-  const [isPublic, setIsPublic] = useState("open");
+  const [roomType, setRoomType] = useState("public");
   const [topic, setTopic] = useState("");
   const publicText = "This Room will be visible in explore section";
   const privateText = "People need to use the link of this room to join in";
@@ -15,7 +15,7 @@ const AddRoomModal = ({ onClose }) => {
   async function createRoom() {
     try {
       if (!topic) return;
-      const { data } = await create({ topic, isPublic });
+      const { data } = await create({ topic, roomType });
       navigate(`/room/${data.id}`);
       // console.log(data);
     } catch (err) {
@@ -44,16 +44,20 @@ const AddRoomModal = ({ onClose }) => {
           <div className={styles.roomTypes}>
             <div
               title={publicText}
-              onClick={() => setIsPublic(true)}
-              className={`${styles.typeBox} ${isPublic ? styles.active : ""}`}
+              onClick={() => setRoomType("public")}
+              className={`${styles.typeBox} ${
+                roomType === "public" ? styles.active : ""
+              }`}
             >
               <img src="/images/globe.png" alt="globe" />
-              <span>Open</span>
+              <span>Public</span>
             </div>
             <div
               title={privateText}
-              onClick={() => setIsPublic(false)}
-              className={`${styles.typeBox} ${isPublic ? "" : styles.active}`}
+              onClick={() => setRoomType("private")}
+              className={`${styles.typeBox} ${
+                roomType === "private" ? styles.active : ""
+              }`}
             >
               <img src="/images/lock.png" alt="lock" />
               <span>Private</span>

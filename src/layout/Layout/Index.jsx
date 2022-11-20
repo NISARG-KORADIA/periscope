@@ -11,12 +11,6 @@ const Index = ({ children }) => {
       <Sider
         breakpoint="lg"
         collapsedWidth="0"
-        onBreakpoint={(broken) => {
-          console.log(broken);
-        }}
-        onCollapse={(collapsed, type) => {
-          console.log(collapsed, type);
-        }}
         style={{ padding: "0.5em" }}
         className="bg_secondary"
         width={290}
