@@ -1,20 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { getUser } from "../../http";
 import { Row, Col, Image, Typography, Button, Avatar } from "antd";
 import "./Profile.css";
 import Layout from "../../layout/Layout/Index";
 import Loader from "../../components/shared/Loader/Loader";
+import EditeProfile from "../../components/EditeProfile/EditeProfile";
 import UserProfile from "../../components/UserProfile/UserProfile";
 import { EnvironmentOutlined, ShoppingFilled } from "@ant-design/icons";
 
 const { Text } = Typography;
 
 const Home = () => {
+  const authUser = useSelector((state) => state.auth.user);
   const { id: userId } = useParams();
   const [user, setUser] = useState(null);
+  const [isEdit, setIsEdit] = useState(false);
   const [socialUser, setSocialUser] = useState("followes");
- console.log("user", user)
+
   useEffect(() => {
     const fetchUser = async () => {
       const { data } = await getUser(userId);
@@ -24,6 +28,13 @@ const Home = () => {
     fetchUser();
   }, [userId]);
 
+  function hideRoomModal() {
+    setIsEdit(false);
+  }
+
+  function showRoomModal() {
+    setIsEdit(true);
+  };
   // ui elements
   const LoadingElement = () => (
     <div className="loadingWrap">
@@ -52,11 +63,13 @@ const Home = () => {
                 </Text>
               </Row>
             )}
-            <Row>
-              <Button size="large" className="bg_primary text_white blue_btn">
-                Edit Profile
-              </Button>
-            </Row>
+            {userId ===  authUser?.id && (
+              <Row>
+                <Button size="large" className="bg_primary text_white blue_btn" onClick={()=>setIsEdit(true)}>
+                  Edit Profile
+                </Button>
+              </Row>
+            )}
           </Col>
           <Col
             xs={24}
@@ -78,7 +91,7 @@ const Home = () => {
                   onClick={() => setSocialUser("followes")}
                 >
                   <span style={{ fontWeight: "bold", fontSize: "18px" }}>
-                  {user?.followers?.length}
+                    {user?.followers?.length}
                   </span>{" "}
                   Followers
                 </div>
@@ -97,22 +110,20 @@ const Home = () => {
                 </div>
               </div>
               <div style={{ marginTop: "2em" }}>
-                {socialUser === "followes" && user?.followers &&
+                {socialUser === "followes" &&
+                  user?.followers &&
                   user?.followers?.map((user) => (
                     <UserProfile
                       key={user.id}
-                      name={user.name}
-                      avatar={user.avatar}
-                      online={user.online}
+                      user={user}
                     />
                   ))}
-                  {socialUser === "following" && user?.following&&
+                {socialUser === "following" &&
+                  user?.following &&
                   user?.following?.map((user) => (
                     <UserProfile
                       key={user.id}
-                      name={user.name}
-                      avatar={user.avatar}
-                      online={user.online}
+                      user={user}
                     />
                   ))}
               </div>
@@ -120,6 +131,7 @@ const Home = () => {
           </Col>
         </Row>
       )}
+      {isEdit && <EditeProfile onClose={hideRoomModal} onOpen={showRoomModal}/>}
     </Layout>
   );
 };

@@ -36,9 +36,7 @@ const ProfileMessage = () => {
         {following.map((user) => (
           <UserProfile
             key={user.id}
-            name={user.name}
-            avatar={user.avatar}
-            online={user.online}
+            user={user}
           />
         ))}
       </div>

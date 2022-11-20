@@ -8,22 +8,6 @@ import styles from "./AddRoomModal.module.css";
 const AddRoomModal = ({ onClose, onOpen }) => {
   const navigate = useNavigate();
   const roomType= "public";
-  const [topic, setTopic] = useState("");
-
-  async function createRoom() {
-    try {
-      if (!topic) return;
-      const { data } = await create({ topic, roomType });
-      navigate(`/room/${data.id}`);
-      // console.log(data);
-    } catch (err) {
-      console.log(err);
-    }
-  }
-
-  function roomNameInput(e) {
-    setTopic(e.target.value);
-  }
 
   async function onFinish (values) {
     try {
@@ -37,9 +21,6 @@ const AddRoomModal = ({ onClose, onOpen }) => {
       console.log(err);
     }
     onClose();
-  };
-  const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
   };
 
   return (
@@ -62,13 +43,11 @@ const AddRoomModal = ({ onClose, onOpen }) => {
           remember: true,
         }}
         onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
         autoComplete="off"
       >
         <Form.Item
           label="Enter the topic of discussion"
           name="topic"
-          onChange={(e) => roomNameInput(e)}
           rules={[
             {
               required: true,
