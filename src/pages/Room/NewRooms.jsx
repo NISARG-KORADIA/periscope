@@ -14,79 +14,81 @@ import {
 } from "@ant-design/icons";
 import Layout from "../../layout/Layout/Index";
 import styles from "./Room.module.css";
+import Loader from "../../components/shared/Loader/Loader";
 
 const { Text } = Typography;
 
 const Room = () => {
   const { id: roomId } = useParams();
   const user = useSelector((state) => state.auth.user);
-  const { clients, provideRef, handleMute } = useWebRTC(roomId, user);
-  const [room, setRoom] = useState("Title");
+  // const { clients, provideRef, handleMute } = useWebRTC(roomId, user);
+  const [room, setRoom] = useState(null);
   const [isMute, setMute] = useState(true);
   const navigate = useNavigate();
 
-  const handleManualLeave = () => {
-    navigate("/home");
-  };
+  // const handleManualLeave = () => {
+  //   navigate("/home");
+  // };
 
-  useEffect(() => {
-    handleMute(isMute, user.id);
-  }, [isMute]);
+  // useEffect(() => {
+  //   // handleMute(isMute, user.id);
+  // }, [isMute]);
 
   useEffect(() => {
     const fetchRoom = async () => {
       const { data } = await getRoom(roomId);
-      setRoom((prev) => data.topic);
+      console.log(data);
+      // setRoom(room);
     };
 
     fetchRoom();
   }, [roomId]);
 
-  const handleMuteClick = (clientId) => {
-    if (clientId !== user.id) {
-      return;
-    }
-    setMute((prev) => !prev);
-  };
+  // const handleMuteClick = (clientId) => {
+  //   if (clientId !== user.id) {
+  //     return;
+  //   }
+  //   setMute((prev) => !prev);
+  // };
 
-  const User = (client) => (
-    <div className={styles.userImg} key={client.id}>
-      <img
-        alt="User Profile"
-        width={80}
-        className="profile_img"
-        src={client.avatar}
-      />
-      <audio
-        autoPlay
-        playsInline
-        ref={(instance) => {
-          provideRef(instance, client.id);
-        }}
-      />
-      {client.muted ? (
-        <div className={styles.muteBtn}>
-          <AudioMutedOutlined />
-        </div>
-      ) : (
-        <div className={styles.unMuteBtn}>
-          <AudioOutlined />
-        </div>
-      )}
-      <Text
-        className="text_gray text_regular_bold"
-        style={{ fontSize: "12px" }}
-      >
-        {client.name}
-      </Text>
-    </div>
-  );
+  // const User = (client) => (
+  //   <div className={styles.userImg} key={client.id}>
+  //     <img
+  //       alt="User Profile"
+  //       width={80}
+  //       className="profile_img"
+  //       src={client.avatar}
+  //     />
+  //     <audio
+  //       autoPlay
+  //       playsInline
+  //       ref={(instance) => {
+  //         provideRef(instance, client.id);
+  //       }}
+  //     />
+  //     {client.muted ? (
+  //       <div className={styles.muteBtn}>
+  //         <AudioMutedOutlined />
+  //       </div>
+  //     ) : (
+  //       <div className={styles.unMuteBtn}>
+  //         <AudioOutlined />
+  //       </div>
+  //     )}
+  //     <Text
+  //       className="text_gray text_regular_bold"
+  //       style={{ fontSize: "12px" }}
+  //     >
+  //       {client.name}
+  //     </Text>
+  //   </div>
+  // );
 
   const Header = () => (
     <Row justify="space-between">
       <Col>
         <Text className="text_primary text_bold" style={{ fontSize: "32px" }}>
-        {room}
+          {room}
         </Text>
         <div style={{ display: "flex", alignItems: "center" }}>
           <Text
@@ -110,54 +112,65 @@ const Room = () => {
         </div>
       </Col>
       <Col>
-        <Button className={styles.leave_btn} onClick={handleManualLeave}>
+        {/* <Button className={styles.leave_btn} onClick={handleManualLeave}>
           <FullscreenExitOutlined /> Leave Quietly
-        </Button>
+        </Button> */}
       </Col>
     </Row>
   );
 
-  return (
-    <Layout>
-      <Row>
-        <Col span={24} style={{ padding: "1em" }}>
-          <Header />
-          <Card
-            className="bg_secondary theme_card"
-            style={{ marginTop: "1em" }}
-          >
-            <div style={{ padding: "1em" }}>
-              <Text className="text_primary_dark text_regular_bold">
-                Speakers
-              </Text>
-              <Row style={{ marginTop: "1em" }}>
-                <Col xs={12} sm={12} md={4} lg={3} xl={3}>
-                  {clients.map((client) => {
-                    return <User client={client} />;
-                  })}
-                </Col>
-              </Row>
-            </div>
-          </Card>
+  if (user == null) {
+    return <Loader message="Setting up things" />;
+  }
 
-          <Card
-            className="bg_secondary theme_card"
-            style={{ marginTop: "1em" }}
-          >
-            <div style={{ padding: "1em" }}>
-              <Text className="text_primary_dark text_regular_bold">
-                Listeners
-              </Text>
-              <Row style={{ marginTop: "1em" }}>
-                <Col xs={12} sm={12} md={4} lg={3} xl={3}>
-                  <User />
-                </Col>
-              </Row>
-            </div>
-          </Card>
-        </Col>
-      </Row>
-    </Layout>
+  // return (
+  //   <Layout>
+  //     <Row>
+  //       <Col span={24} style={{ padding: "1em" }}>
+  //         <Header />
+  //         <Card
+  //           className="bg_secondary theme_card"
+  //           style={{ marginTop: "1em" }}
+  //         >
+  //           <div style={{ padding: "1em" }}>
+  //             <Text className="text_primary_dark text_regular_bold">
+  //               Speakers
+  //             </Text>
+  //             <Row style={{ marginTop: "1em" }}>
+  //               <Col xs={12} sm={12} md={4} lg={3} xl={3}>
+  //                 {clients.map((client) => {
+  //                   return <User client={client} />;
+  //                 })}
+  //               </Col>
+  //             </Row>
+  //           </div>
+  //         </Card>
+
+  //         <Card
+  //           className="bg_secondary theme_card"
+  //           style={{ marginTop: "1em" }}
+  //         >
+  //           <div style={{ padding: "1em" }}>
+  //             <Text className="text_primary_dark text_regular_bold">
+  //               Listeners
+  //             </Text>
+  //             <Row style={{ marginTop: "1em" }}>
+  //               <Col xs={12} sm={12} md={4} lg={3} xl={3}>
+  //                 <User />
+  //               </Col>
+  //             </Row>
+  //           </div>
+  //         </Card>
+  //       </Col>
+  //     </Row>
+  //   </Layout>
+  // );
+
+  return (
+    <>
+      <div>roomHere</div>
+      {room && <p>{room.topic}</p>}
+    </>
   );
 };
 

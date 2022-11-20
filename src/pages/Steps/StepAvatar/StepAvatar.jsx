@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Button from "../../../components/shared/Button/Button";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./StepAvatar.module.css";
 import { setAvatar } from "../../../store/activateSlice";
@@ -55,35 +54,38 @@ const StepAvatar = ({ onNext }) => {
     };
   }, []);
 
-  if (loading) return <Loader message="Activating..." />;
-
   return (
     <AuthLayout imageSource="/images/AvatarPage.png">
-      <AuthBox
-        title="Let's show your beautiful self!"
-        buttonLabel="Continue"
-        buttonFunction={submit}
-      >
-        <div className={styles.avatarSection}>
-          <div className={styles.avatarWrap}>
-            <img className={styles.avatar} src={image} alt="avatar" />
-            <label htmlFor="avatarInput">
-              <div className={styles.imgUploadButton}>
-                <img
-                  className={styles.uploadIcon}
-                  src="/images/UploadtoCloud.png"
-                />
-              </div>
-            </label>
+      {loading ? (
+        <Loader message="Activating..." />
+      ) : (
+        <AuthBox
+          title="Let's show your beautiful self!"
+          buttonLabel="Continue"
+          buttonFunction={submit}
+        >
+          <div className={styles.avatarSection}>
+            <div className={styles.avatarWrap}>
+              <img className={styles.avatar} src={image} alt="avatar" />
+              <label htmlFor="avatarInput">
+                <div className={styles.imgUploadButton}>
+                  <img
+                    className={styles.uploadIcon}
+                    src="/images/UploadtoCloud.png"
+                    alt="uploadIcon"
+                  />
+                </div>
+              </label>
+            </div>
+            <input
+              onChange={captureImage}
+              type="file"
+              id="avatarInput"
+              className={styles.avatarInput}
+            />
           </div>
-          <input
-            onChange={captureImage}
-            type="file"
-            id="avatarInput"
-            className={styles.avatarInput}
-          />
-        </div>
-      </AuthBox>
+        </AuthBox>
+      )}
     </AuthLayout>
   );
 };
