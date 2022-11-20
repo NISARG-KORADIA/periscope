@@ -1,6 +1,6 @@
 import React from "react";
 import { Menu, Row, Col, Image, Button, Typography } from "antd";
-import Message from "../../components/MessageBox/MessageBox";
+import Messages from "../../components/MessageBox/MessageBox";
 import {
   GlobalOutlined,
   LineChartOutlined,
@@ -21,60 +21,22 @@ function getItem(label, key, icon) {
     label,
   };
 }
+
 const items = [
   getItem("All Rooms", "1", <GlobalOutlined />),
   getItem("Popular", "2", <TeamOutlined />),
   getItem("Following", "3", <LineChartOutlined />),
   getItem("Settings", "4", <SettingOutlined />),
 ];
-const rooms = [
-  {
-    logo: GlobalOutlined,
-    name: "Which framework best for frontend ?",
-  },
-  {
-    logo: GlobalOutlined,
-    name: "Which framework best for frontend ?",
-  },
-  {
-    logo: GlobalOutlined,
-    name: "Which framework best for frontend ?",
-  },
-  {
-    logo: GlobalOutlined,
-    name: "Which framework best for frontend ?",
-  },
-];
 
-const peers = [
-  {
-    name: "Dean Houle",
-    avatar: "images/01.png",
-    online: true,
-  },
-  {
-    name: "Melody Row",
-    avatar: "images/Avatar2.png",
-    online: true,
-  },
-  {
-    name: "Will Rehbein",
-    avatar: "images/Avatar3.png",
-    online: false,
-  },
-];
-
-const Profile = ({ image }) => (
-  <Row justify="center" style={{ marginBottom: "2em", marginTop: "1em" }}>
-    <Col flex={2}>
-      <div>
-        <Image width={45} className="profile_img" src={image} />
-        {/* <Avatar /> */}
-      </div>
+const Profile = ({ image, name, userName }) => (
+  <Row justify="start" style={{ marginBottom: "2em", marginTop: "1em" }}>
+    <Col style={{ marginRight: "2em" }}>
+      <Image width={45} className="profile_img" src={image} />
     </Col>
-    <Col flex={4} className="profile_text">
-      <Text className="text_black text_bold">Mandy Willson</Text>
-      <Text className="text_gray text_regular_bold">@mandywillson</Text>
+    <Col className="profile_text">
+      <Text className="text_black text_bold">{name}</Text>
+      <Text className="text_gray text_regular_bold">{`@${userName}`}</Text>
     </Col>
   </Row>
 );
@@ -88,7 +50,7 @@ const Sider = () => {
 
   return (
     <>
-      <Profile image={user?.avatar} />
+      <Profile image={user.avatar} name={user.name} userName={user.userName} />
       <Row style={{ marginBottom: "1em" }}>
         <Button
           type="primary"
@@ -105,7 +67,7 @@ const Sider = () => {
         items={items}
         style={{ marginBottom: "1em" }}
       />
-      <Message peers={peers} />
+      <Messages />
     </>
   );
 };

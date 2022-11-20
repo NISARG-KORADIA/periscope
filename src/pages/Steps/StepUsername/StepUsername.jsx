@@ -17,11 +17,6 @@ const StepUsername = ({ onNext }) => {
     onNext();
   }
 
-  function check(name) {
-    setUserNameInput(name);
-    console.log(userNameInput);
-  }
-
   return (
     <AuthLayout
       imageSource="/images/UserNamePage.png"

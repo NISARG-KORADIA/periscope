@@ -2,10 +2,13 @@ import React from "react";
 import { Row, Col, Image, Typography } from "antd";
 import { CommentOutlined } from "@ant-design/icons";
 import UserProfile from "../UserProfile/UserProfile";
+import { useSelector } from "react-redux";
 
 const { Text } = Typography;
 
-const ProfileMessage = ({ peers }) => {
+const ProfileMessage = () => {
+  const { following } = useSelector((state) => state.auth.user);
+
   return (
     <>
       <Row justify="space-between">
@@ -26,16 +29,16 @@ const ProfileMessage = ({ peers }) => {
           className="text_alert text_bold text_right"
           style={{ fontSize: "18px" }}
         >
-          {peers.length}
+          {following.length}
         </Col>
       </Row>
       <div style={{ padding: "1em" }}>
-        {peers.map((peer) => (
+        {following.map((user) => (
           <UserProfile
-            key={peer.name}
-            name={peer.name}
-            avatar={peer.avatar}
-            online={peer.online}
+            key={user.id}
+            name={user.name}
+            avatar={user.avatar}
+            online={user.online}
           />
         ))}
       </div>

@@ -10,77 +10,6 @@ import { useDispatch, useSelector } from "react-redux";
 import AddRoomModal from "../../components/AddRoomModal/AddRoomModal";
 import { roomModalVisible } from "../../store/roomModalSlice";
 
-// const rooms = [
-//   {
-//     id: 1,
-//     topic: "Which framework best for frontend ?",
-//     speakers: [
-//       {
-//         id: 1,
-//         name: "John Doe",
-//         avatar: "/images/monkeyAvatar.png",
-//       },
-//       {
-//         id: 2,
-//         name: "Jane Doe",
-//         avatar: "/images/monkeyAvatar.png",
-//       },
-//     ],
-//     totalPeople: 40,
-//   },
-//   {
-//     id: 3,
-//     topic: "What’s new in machine learning?",
-//     speakers: [
-//       {
-//         id: 1,
-//         name: "John Doe",
-//         avatar: "/images/monkeyAvatar.png",
-//       },
-//       {
-//         id: 2,
-//         name: "Jane Doe",
-//         avatar: "/images/monkeyAvatar.png",
-//       },
-//     ],
-//     totalPeople: 40,
-//   },
-//   {
-//     id: 4,
-//     topic: "Why people use stack overflow?",
-//     speakers: [
-//       {
-//         id: 1,
-//         name: "John Doe",
-//         avatar: "/images/monkeyAvatar.png",
-//       },
-//       {
-//         id: 2,
-//         name: "Jane Doe",
-//         avatar: "/images/monkeyAvatar.png",
-//       },
-//     ],
-//     totalPeople: 40,
-//   },
-//   {
-//     id: 5,
-//     topic: "Artificial inteligence is the future?",
-//     speakers: [
-//       {
-//         id: 1,
-//         name: "John Doe",
-//         avatar: "/images/monkeyAvatar.png",
-//       },
-//       {
-//         id: 2,
-//         name: "Jane Doe",
-//         avatar: "/images/monkeyAvatar.png",
-//       },
-//     ],
-//     totalPeople: 40,
-//   },
-// ];
-
 const Home = () => {
   // const [rooms, setRooms] = useState([]);
   const { roomModalVisibility } = useSelector((state) => state.roomModal);
@@ -94,9 +23,13 @@ const Home = () => {
     // fetchRooms();
   }, []);
 
-  function hideModal() {
+  function hideRoomModal() {
     dispatch(roomModalVisible(false));
   }
+
+  const showRoomModal = () => {
+    dispatch(roomModalVisible(true));
+  };
 
   return (
     <>
@@ -110,7 +43,7 @@ const Home = () => {
             {/* ))} */}
           </Row>
         </div>
-        {roomModalVisibility && <AddRoomModal onClose={hideModal} />}
+        {roomModalVisibility && <AddRoomModal onClose={hideRoomModal} onOpen={showRoomModal}/>}
       </Layout>
     </>
   );
