@@ -4,8 +4,9 @@ import Landing from './pages/Landing/Landing';
 import Authenticate from './pages/Authenticate/Authenticate';
 import Activate from './pages/Activate/Activate';
 import Home from './pages/Home/Home';
-import Room from './pages/Room/NewRooms';
+import Room from './pages/Room/Room';
 import Profile from './pages/Profile/Profile';
+import Message from './pages/Message/Message';
 import { useSelector } from 'react-redux';
 import { useLoadingWithRefresh } from './hooks/useLoadingWithRefresh';
 import Loader from './components/shared/Loader/Loader';
@@ -48,6 +49,11 @@ function App() {
         <Route path="/profile/:id" element={
           <UserRoute>
             <Profile />
+          </UserRoute>
+        } />
+        <Route path="/message" element={
+          <UserRoute>
+            <Message />
           </UserRoute>
         } />
       </Routes>
