@@ -1,40 +1,89 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { getUser } from "../../http";
+import { useParams, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getUser, followUser, unFollowUser } from "../../http";
 import { Row, Col, Image, Typography, Button, Avatar } from "antd";
 import "./Profile.css";
 import Layout from "../../layout/Layout/Index";
 import Loader from "../../components/shared/Loader/Loader";
 import EditeProfile from "../../components/EditeProfile/EditeProfile";
 import UserProfile from "../../components/UserProfile/UserProfile";
-import { EnvironmentOutlined, ShoppingFilled } from "@ant-design/icons";
+import {
+  EnvironmentOutlined,
+  ShoppingFilled,
+  UserAddOutlined,
+  UserDeleteOutlined,
+} from "@ant-design/icons";
+import { setAuth } from "../../store/authSlice";
 
 const { Text } = Typography;
 
 const Home = () => {
   const authUser = useSelector((state) => state.auth.user);
+  const navigate = useNavigate();
   const { id: userId } = useParams();
   const [user, setUser] = useState(null);
   const [isEdit, setIsEdit] = useState(false);
-  const [socialUser, setSocialUser] = useState("followes");
+  const [socialUser, setSocialUser] = useState("followers");
+  const [inFollowingList, setinFollowingList] = useState(false);
+
+  const dispatch = useDispatch()
+
+  const fetchUser = async () => {
+    const { data } = await getUser(userId);
+    setUser(data);
+    setinFollowingList(data?.followers?.some((u) => u.id === authUser.id))
+  };
 
   useEffect(() => {
-    const fetchUser = async () => {
-      const { data } = await getUser(userId);
-      setUser(data);
-    };
-
     fetchUser();
   }, [userId]);
 
-  function hideRoomModal() {
+  function hideEditModal() {
     setIsEdit(false);
+    navigate()
   }
 
-  function showRoomModal() {
+  function showEditModal() {
     setIsEdit(true);
-  };
+  }
+
+  async function followingState() {
+    if (!user.id) return;
+    try {
+      if(inFollowingList){
+        // Unfollow actions
+        // const followingList = user?.followers?.filter((u) => u.id !== authUser.id);
+        // user.followers = followingList;
+        // setUser(user)
+        
+        await unFollowUser({unFollowingId : userId});
+        const authUserUpdated = JSON.parse(JSON.stringify(authUser));
+        authUserUpdated.following = authUserUpdated?.following?.filter((u) => u.id !== user.id);
+        dispatch(setAuth({user: authUserUpdated}));
+        fetchUser();
+      }else{
+        // Follow actions
+        // const followerList = user.followers.push(JSON.parse(JSON.stringify(authUser)))
+        // user.followers = followerList;
+        // setUser(user);
+
+        await followUser({followingId: userId});
+        const authUserUpdated = JSON.parse(JSON.stringify(authUser));
+        authUserUpdated.following.push(user);
+        dispatch(setAuth({user: authUserUpdated}));
+        fetchUser();
+      }
+      setinFollowingList(!inFollowingList)
+      // navigate(`/profile/${user.id}`);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  // const found = user?.following?.some((u) => u.id === userId);
+  // console.log("found", found);
+
   // ui elements
   const LoadingElement = () => (
     <div className="loadingWrap">
@@ -63,11 +112,28 @@ const Home = () => {
                 </Text>
               </Row>
             )}
-            {userId ===  authUser?.id && (
+            {userId === authUser?.id && (
               <Row>
-                <Button size="large" className="bg_primary text_white blue_btn" onClick={()=>setIsEdit(true)}>
+                <Button
+                  size="large"
+                  className="bg_primary text_white blue_btn"
+                  onClick={() => setIsEdit(true)}
+                >
                   Edit Profile
                 </Button>
+              </Row>
+            )}
+            {userId !== authUser?.id && (
+              <Row>
+                <div
+                  className="active_radio"
+                  onClick={followingState}
+                >
+                  <span style={{ fontWeight: "bold", fontSize: "18px" }}>
+                    {inFollowingList ? <UserDeleteOutlined /> : <UserAddOutlined />}
+                  </span>
+                  {inFollowingList ? " Unfollow" : " Follow"}
+                </div>
               </Row>
             )}
           </Col>
@@ -84,11 +150,11 @@ const Home = () => {
               <div className="custom_radio">
                 <div
                   className={`${
-                    socialUser === "followes"
+                    socialUser === "followers"
                       ? "active_radio"
                       : "inactive_radio"
                   }`}
-                  onClick={() => setSocialUser("followes")}
+                  onClick={() => setSocialUser("followers")}
                 >
                   <span style={{ fontWeight: "bold", fontSize: "18px" }}>
                     {user?.followers?.length}
@@ -110,28 +176,24 @@ const Home = () => {
                 </div>
               </div>
               <div style={{ marginTop: "2em" }}>
-                {socialUser === "followes" &&
+                {socialUser === "followers" &&
                   user?.followers &&
                   user?.followers?.map((user) => (
-                    <UserProfile
-                      key={user.id}
-                      user={user}
-                    />
+                    <UserProfile key={user.id} user={user} />
                   ))}
                 {socialUser === "following" &&
                   user?.following &&
                   user?.following?.map((user) => (
-                    <UserProfile
-                      key={user.id}
-                      user={user}
-                    />
+                    <UserProfile key={user.id} user={user} />
                   ))}
               </div>
             </div>
           </Col>
         </Row>
       )}
-      {isEdit && <EditeProfile onClose={hideRoomModal} onOpen={showRoomModal}/>}
+      {isEdit && (
+        <EditeProfile onClose={hideEditModal} onOpen={showEditModal} />
+      )}
     </Layout>
   );
 };
