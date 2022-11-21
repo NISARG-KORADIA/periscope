@@ -22,6 +22,8 @@ export const activate = (data) => api.post('/api/activate', data);
 export const logout = () => api.post('/api/logout');
 export const createRoom = (data) => api.post('/api/rooms', data);
 export const getAllRooms = () => api.get('/api/rooms');
+export const addSpeaker = (data) => api.put('/api/room/addSpeaker', data);
+export const removeSpeaker = (data) => api.put('/api/room/removeSpeaker', data);
 export const getRoom = (roomId) => api.get(`/api/room/${roomId}`)
 export const getUser = (userId) => api.get(`/api/user/${userId}`)
 
