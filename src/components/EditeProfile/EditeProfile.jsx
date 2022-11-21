@@ -3,9 +3,9 @@ import { useParams } from "react-router-dom";
 import { Modal, Button, Form, Input } from "antd";
 import { useNavigate } from "react-router-dom";
 import { getUser } from "../../http";
-import { createRoom as create } from "../../http";
-import { PlusOutlined } from '@ant-design/icons';
-// import Button from "../shared/Button/Button";
+import { updateUser } from "../../http";
+import { useDispatch } from "react-redux";
+import { setAuth } from "../../store/authSlice";
 const { TextArea } = Input;
 
 
@@ -13,6 +13,7 @@ const EditeProfile = ({ onClose, onOpen }) => {
   const navigate = useNavigate();
   const { id: userId } = useParams();
   const [user, setUser] = useState(null);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -26,11 +27,9 @@ const EditeProfile = ({ onClose, onOpen }) => {
   async function onFinish (values) {
     try {
       if (!values) return;
-      console.log("Success:", values);
-      const { data } = await create(values);
+      const { data } = await updateUser({userData: values});
 
-      console.log("data", data);
-      navigate(`/room/${data.id}`);
+      dispatch(setAuth({user:data}));
     } catch (err) {
       console.log(err);
     }
@@ -39,90 +38,98 @@ const EditeProfile = ({ onClose, onOpen }) => {
 
   return (
     <Modal
-      title="Start a room"
+      title="Edit your data"
       open={onOpen}
       onOk={onClose}
       onCancel={onClose}
       footer={false}
     >
-      <Form
-        name="basic"
-        wrapperCol={{
-          span: 24,
-        }}
-        initialValues={{
-          remember: true,
-        }}
-        onFinish={onFinish}
-        autoComplete="off"
-      >
-        <div>Your name:</div>
-        <Form.Item
-          name="name"
-          noStyle
-          rules={[
-            {
-              required: true,
-              message: "Please enter the name",
-            }
-          ]}
-        >
-          <Input />
-        </Form.Item>
-        <div>Location:</div>
-        <Form.Item
-          name="location"
-          noStyle
-          rules={[
-            {
-              required: true,
-              message: "Please enter the location",
-            }
-          ]}
-        >
-          <Input />
-        </Form.Item>
-        <div>Occupation:</div>
-        <Form.Item
-          name="location"
-          noStyle
-          rules={[
-            {
-              required: true,
-              message: "Please enter the occupation",
-            } 
-          ]}
-        >
-          <Input />
-        </Form.Item>
-        <div>Biodata:</div>
-        <Form.Item
-          name="location"
-          noStyle
-          rules={[
-            {
-              required: true,
-              message: "Please enter the biodata",
-            }
-          ]}
-        >
-          <TextArea />
-        </Form.Item>
-        <Form.Item
-          wrapperCol={{
-            span: 24,
-          }}
-        >
-          <Button
-            type="primary"
-            className="text_black theme_btn"
-            style={{ width: "100%", marginTop: "1em" }}
-            htmlType="submit"
+      {
+        user == null ? (<div>Wait</div>):(
+          <Form
+            name="basic"
+            wrapperCol={{
+              name: user?.name,
+              location: user?.location,
+              occupation: user?.occupation,
+              bio: user?.bio,
+              span: 24,
+            }}
+            initialValues={{
+              remember: true,
+            }}
+            onFinish={onFinish}
+            autoComplete="off"
           >
-            Edit
-          </Button>
-        </Form.Item>
-      </Form>
+            <div>Your name:</div>
+            <Form.Item
+              name="name"
+              noStyle
+              rules={[
+                {
+                  required: false,
+                  message: "Please enter the name",
+                }
+              ]}
+            >
+              <Input />
+            </Form.Item>
+            <div>Location:</div>
+            <Form.Item
+              name="location"
+              noStyle
+              rules={[
+                {
+                  required: false,
+                  message: "Please enter the location",
+                }
+              ]}
+            >
+              <Input />
+            </Form.Item>
+            <div>Occupation:</div>
+            <Form.Item
+              name="occupation"
+              noStyle
+              rules={[
+                {
+                  required: false,
+                  message: "Please enter the occupation",
+                } 
+              ]}
+            >
+              <Input />
+            </Form.Item>
+            <div>Bio:</div>
+            <Form.Item
+              name="bio"
+              noStyle
+              rules={[
+                {
+                  required: false,
+                  message: "Please enter the biodata",
+                }
+              ]}
+            >
+              <TextArea />
+            </Form.Item>
+            <Form.Item
+              wrapperCol={{
+                span: 24,
+              }}
+            >
+              <Button
+                type="primary"
+                className="text_black theme_btn"
+                style={{ width: "100%", marginTop: "1em" }}
+                htmlType="submit"
+              >
+                Save
+              </Button>
+            </Form.Item>
+          </Form>
+        )
+      }
     </Modal>
   );
 };
