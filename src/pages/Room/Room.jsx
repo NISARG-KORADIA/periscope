@@ -1,7 +1,9 @@
-import { React, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { getRoom } from "../../http";
+import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { useWebRTC } from "../../hooks/useWebRTC";
+import { useParams, useNavigate } from "react-router-dom";
+import { addSpeaker, getRoom } from "../../http";
+
 import Layout from "../../layout/Layout/Index";
 import Loader from "../../components/shared/Loader/Loader";
 import styles from "./Room.module.css";
@@ -11,15 +13,15 @@ import {
   AudioOutlined,
   FullscreenExitOutlined,
 } from "@ant-design/icons";
-import { useSelector } from "react-redux";
 
 const { Text } = Typography;
+
 const Room = () => {
   const { id: roomId } = useParams();
-  const { user } = useSelector((state) => state.auth);
-  
-  const [isMuted, setMuted] = useState(true);
+  const user = useSelector((state) => state.auth.user);
+
   const [room, setRoom] = useState(null);
+
   const { clients, provideRef, handleMute, localStream } = useWebRTC(
     roomId,
     user
@@ -27,7 +29,7 @@ const Room = () => {
 
   const navigate = useNavigate();
 
-  const leaveRooom = () => {
+  const leaveRoom = () => {
     navigate("/home");
   };
 
@@ -35,24 +37,21 @@ const Room = () => {
     const fetchRoom = async () => {
       const { data } = await getRoom(roomId);
       setRoom(data);
+      addSpeaker({ roomId });
+      handleMute(true, user.id);
     };
 
     fetchRoom();
   }, [roomId]);
 
-  useEffect(() => {
-    handleMute(isMuted, user.id);
-  }, [isMuted]);
-
-  const unMutePeer = (peer) => {
-    if (peer.id === user.id) {
-      setMuted(false, peer.id);
-    }
+  const unMutePeer = (client) => {
+    if (client.id !== user.id) return;
+    handleMute(false, client.id);
   };
 
-  const mutePeer = (peer) => {
-    if (peer.id === user.id) {
-      setMuted(true, peer.id);
+  const mutePeer = (client) => {
+    if (client.id === user.id) {
+      handleMute(true, client.id);
     }
   };
 
@@ -91,53 +90,11 @@ const Room = () => {
         </div>
       </Col>
       <Col>
-        <Button className={styles.leave_btn} onClick={leaveRooom}>
+        <Button className={styles.leave_btn} onClick={leaveRoom}>
           <FullscreenExitOutlined /> Leave
         </Button>
       </Col>
     </Row>
-  );
-
-  const User = ({ speaker }) => (
-    <div className={styles.users}>
-      <div className={styles.avatarWrap}>
-        <img
-          alt="User Profile"
-          width={60}
-          className="profile_img"
-          src={speaker.avatar}
-        />
-        <audio
-          autoPlay
-          playsInline
-          ref={(instance) => {
-            provideRef(instance, speaker.id);
-          }}
-        />
-        {speaker.muted ? (
-          <div
-            className={`${styles.micBtn} bg_alert`}
-            onClick={() => unMutePeer(speaker)}
-          >
-            <AudioMutedOutlined />
-          </div>
-        ) : (
-          <div
-            className={`${styles.micBtn} bg_pastel_green`}
-            onClick={() => mutePeer(speaker)}
-          >
-            <AudioOutlined />
-          </div>
-        )}
-      </div>
-
-      <Text
-        className="text_gray text_semi_bold text_primary"
-        style={{ fontSize: "10px" }}
-      >
-        {speaker.name}
-      </Text>
-    </div>
   );
 
   return (
@@ -156,10 +113,47 @@ const Room = () => {
                 <Text className="text_primary_dark text_bold">Speakers</Text>
               </div>
               <Row style={{ marginBlock: "1em" }}>
-                {clients.map((speaker) => {
+                {clients.map((client) => {
                   return (
-                    <Col key={speaker.id} xs={8} sm={8} md={4} lg={3} xl={2}>
-                      <User speaker={speaker} />
+                    <Col key={client.id} xs={8} sm={8} md={4} lg={3} xl={2}>
+                      <div className={styles.users}>
+                        <div className={styles.avatarWrap}>
+                          <img
+                            alt="User Profile"
+                            width={60}
+                            className="profile_img"
+                            src={client.avatar}
+                          />
+                          <audio
+                            autoPlay
+                            playsInline
+                            ref={(instance) => {
+                              provideRef(instance, client.id);
+                            }}
+                          />
+                          {client.muted ? (
+                            <div
+                              className={`${styles.micBtn} bg_alert`}
+                              onClick={() => unMutePeer(client)}
+                            >
+                              <AudioMutedOutlined />
+                            </div>
+                          ) : (
+                            <div
+                              className={`${styles.micBtn} bg_pastel_green`}
+                              onClick={() => mutePeer(client)}
+                            >
+                              <AudioOutlined />
+                            </div>
+                          )}
+                        </div>
+                        <Text
+                          className="text_gray text_semi_bold text_primary"
+                          style={{ fontSize: "10px" }}
+                        >
+                          {client.name}
+                        </Text>
+                      </div>
                     </Col>
                   );
                 })}
