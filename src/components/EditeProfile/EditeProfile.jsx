@@ -90,7 +90,7 @@ const EditeProfile = ({ onClose, onOpen }) => {
             {
               required: true,
               message: "Please enter the occupation",
-            }
+            } 
           ]}
         >
           <Input />

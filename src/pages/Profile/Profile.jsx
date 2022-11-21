@@ -8,7 +8,12 @@ import Layout from "../../layout/Layout/Index";
 import Loader from "../../components/shared/Loader/Loader";
 import EditeProfile from "../../components/EditeProfile/EditeProfile";
 import UserProfile from "../../components/UserProfile/UserProfile";
-import { EnvironmentOutlined, ShoppingFilled } from "@ant-design/icons";
+import {
+  EnvironmentOutlined,
+  ShoppingFilled,
+  UserAddOutlined,
+  UserDeleteOutlined,
+} from "@ant-design/icons";
 
 const { Text } = Typography;
 
@@ -34,7 +39,7 @@ const Home = () => {
 
   function showRoomModal() {
     setIsEdit(true);
-  };
+  }
   // ui elements
   const LoadingElement = () => (
     <div className="loadingWrap">
@@ -63,11 +68,26 @@ const Home = () => {
                 </Text>
               </Row>
             )}
-            {userId ===  authUser?.id && (
+            {userId === authUser?.id && (
               <Row>
-                <Button size="large" className="bg_primary text_white blue_btn" onClick={()=>setIsEdit(true)}>
+                <Button
+                  size="large"
+                  className="bg_primary text_white blue_btn"
+                  onClick={() => setIsEdit(true)}
+                >
                   Edit Profile
                 </Button>
+              </Row>
+            )}
+            {userId !== authUser?.id && (
+              <Row>
+                <div className="active_radio" onClick={() => setIsEdit(true)}>
+                  <span style={{ fontWeight: "bold", fontSize: "18px" }}>
+                    <UserAddOutlined />
+                    <UserDeleteOutlined />
+                  </span>{" "}
+                  Follow Unfollow
+                </div>
               </Row>
             )}
           </Col>
@@ -113,25 +133,21 @@ const Home = () => {
                 {socialUser === "followes" &&
                   user?.followers &&
                   user?.followers?.map((user) => (
-                    <UserProfile
-                      key={user.id}
-                      user={user}
-                    />
+                    <UserProfile key={user.id} user={user} />
                   ))}
                 {socialUser === "following" &&
                   user?.following &&
                   user?.following?.map((user) => (
-                    <UserProfile
-                      key={user.id}
-                      user={user}
-                    />
+                    <UserProfile key={user.id} user={user} />
                   ))}
               </div>
             </div>
           </Col>
         </Row>
       )}
-      {isEdit && <EditeProfile onClose={hideRoomModal} onOpen={showRoomModal}/>}
+      {isEdit && (
+        <EditeProfile onClose={hideRoomModal} onOpen={showRoomModal} />
+      )}
     </Layout>
   );
 };
