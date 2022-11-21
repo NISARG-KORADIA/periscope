@@ -1,9 +1,11 @@
 import React from 'react'
+import { Row, Col } from "antd";
 import styles from './Loader.module.css'
 
 const Loader = ({ message }) => {
   return (
-    <div className="card shadow-3d rouded-corner bg_secondary">
+    <Row justify="center" align="middle" style={{height:"100vh"}}>
+      <div className="">
       <div className={styles.wrapper}>
         <svg
           className={styles.spinner}
@@ -26,7 +28,8 @@ const Loader = ({ message }) => {
         </svg>
         <span className={styles.message}>{message}</span>
       </div>
-    </div>
+      </div>
+    </Row>
   )
 }
 

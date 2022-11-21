@@ -8,6 +8,7 @@ import {
   TeamOutlined,
   SettingOutlined,
   UsergroupAddOutlined,
+  CommentOutlined,
 } from "@ant-design/icons";
 import styles from "./Layout.module.css";
 import { useDispatch, useSelector } from "react-redux";
@@ -23,13 +24,6 @@ function getItem(label, key, icon) {
   };
 }
 
-const items = [
-  getItem("All Rooms", "1", <GlobalOutlined />),
-  getItem("Popular", "2", <LineChartOutlined />),
-  getItem("Following", "3", <TeamOutlined />),
-  getItem("Settings", "4", <SettingOutlined />),
-];
-
 const Sider = () => {
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
@@ -38,6 +32,13 @@ const Sider = () => {
   };
   const navigate = useNavigate();
 
+  const items = [
+    getItem("All Rooms", "1", <GlobalOutlined />),
+    getItem("Popular", "2", <LineChartOutlined />),
+    getItem("Following", "3", <TeamOutlined />),
+    getItem("Messages", "4", <CommentOutlined />),
+    getItem("Settings", "5", <SettingOutlined />),
+  ];
   function goToProfile() {
     navigate(`/profile/${user.id}`);
   }
@@ -57,6 +58,14 @@ const Sider = () => {
       </Col>
     </Row>
   );
+  const onClick = (e) => {
+    // console.log(typeof(e.key));
+    if (e.key === "1") navigate(`/home`);
+    if (e.key === "2") navigate(`/home`);
+    if (e.key === "3") navigate(`/home`);
+    if (e.key === "4") navigate(`/message`);
+    if (e.key === "5") navigate(`/home`);
+  };
 
   return (
     <>
@@ -72,12 +81,13 @@ const Sider = () => {
         </Button>
       </Row>
       <Menu
+        onClick={onClick}
         mode="inline"
         defaultSelectedKeys={["4"]}
         items={items}
         style={{ marginBottom: "1em" }}
       />
-      <Messages />
+      {/* <Messages /> */}
     </>
   );
 };

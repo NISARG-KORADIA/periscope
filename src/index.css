@@ -277,3 +277,6 @@ code {
   border: var(--primary);
   border-radius: 0.5em;
 }
+.ant-input-group-addon:last-child {
+  border-radius: 8px;
+}

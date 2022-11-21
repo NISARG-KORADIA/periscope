@@ -30,7 +30,7 @@ export const getUser = (userId) => api.get(`/api/user/${userId}`)
 // Interceptors will intercepts all the above request which from fontend end to backend.
 api.interceptors.response.use(
   (config) => {
-    return config;
+    return config;  
   },
   async (error) => {
     // Here thi function will only act if there is an error on any requests that are being made above.

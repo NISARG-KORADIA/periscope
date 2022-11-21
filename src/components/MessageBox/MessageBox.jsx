@@ -10,8 +10,8 @@ const ProfileMessage = () => {
   const { following } = useSelector((state) => state.auth.user);
 
   return (
-    <>
-      <Row justify="space-between">
+    <div style={{height:"80vh"}}className="bg_primary_mid">
+      <Row justify="space-between" style={{padding:"1em"}}>
         <Col flex={2}>
           <div>
             <Text
@@ -32,7 +32,7 @@ const ProfileMessage = () => {
           {following.length}
         </Col>
       </Row>
-      <div style={{ padding: "1em" }}>
+      <div style={{ padding: "1em" }} >
         {following.map((user) => (
           <UserProfile
             key={user.id}
@@ -40,7 +40,7 @@ const ProfileMessage = () => {
           />
         ))}
       </div>
-    </>
+    </div>
   );
 };
 
