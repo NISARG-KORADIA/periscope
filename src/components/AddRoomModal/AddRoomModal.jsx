@@ -7,25 +7,14 @@ import styles from "./AddRoomModal.module.css";
 
 const AddRoomModal = ({ onClose, onOpen }) => {
   const navigate = useNavigate();
-  const roomType= "public";
+  const roomType = "public";
   const [topic, setTopic] = useState("");
-
-  async function createRoom() {
-    try {
-      if (!topic) return;
-      const { data } = await create({ topic, roomType });
-      navigate(`/room/${data.id}`);
-      // console.log(data);
-    } catch (err) {
-      console.log(err);
-    }
-  }
 
   function roomNameInput(e) {
     setTopic(e.target.value);
   }
 
-  async function onFinish (values) {
+  async function onFinish(values) {
     try {
       if (!values) return;
       console.log("Success:", values);
@@ -37,7 +26,7 @@ const AddRoomModal = ({ onClose, onOpen }) => {
       console.log(err);
     }
     onClose();
-  };
+  }
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
@@ -115,9 +104,13 @@ const AddRoomModal = ({ onClose, onOpen }) => {
           />
         </Form.Item>
         <Form.Item name="roomType" label="Select room type">
-          <Radio.Group defaultValue={roomType} size="large">
-            <Radio.Button value="Public">Public</Radio.Button>
-            <Radio.Button value="Private">Private</Radio.Button>
+          <Radio.Group size="large">
+            <Radio.Button value="public" onClick={() => console.log(roomType)}>
+              Public
+            </Radio.Button>
+            <Radio.Button value="private" onClick={() => console.log(roomType)}>
+              Private
+            </Radio.Button>
           </Radio.Group>
         </Form.Item>
         <Form.Item

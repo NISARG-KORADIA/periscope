@@ -56,7 +56,10 @@ const RoomCard = ({ room }) => {
         }}
       >
         <Image
-          width={60}
+          style={{
+            border: "solid 0.3em #EFE3CA",
+          }}
+          width={64}
           className="profile_img"
           src={room.hostId.avatar}
           alt="host avatar"
@@ -95,13 +98,14 @@ const RoomCard = ({ room }) => {
             ))}
           </div>
         </Col>
-        {room.speakers.length - 2 > 0 && (
-          <Col flex={5} className="profile_text">
+
+        <Col flex={5} className="profile_text">
+          {room.speakers.length - 2 > 0 && (
             <Text className="text_primary_dark text_regular_bold">
               {`+${room.speakers.length - 2} other speeker`}
             </Text>
-          </Col>
-        )}
+          )}
+        </Col>
         <Col flex={3} className="profile_text">
           <Button className="bg_primary text_white blue_btn" onClick={goToRoom}>
             Join in
