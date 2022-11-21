@@ -50,7 +50,7 @@ const Sider = () => {
       onClick={goToProfile}
     >
       <Col style={{ marginRight: "2em" }}>
-        <Image width={45} className="profile_img" src={image} />
+        <Image width={45} className="profile_img" src={image}  preview={false}/>
       </Col>
       <Col className="profile_text">
         <Text className="text_black text_bold">{name}</Text>

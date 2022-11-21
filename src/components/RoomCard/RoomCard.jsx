@@ -63,6 +63,7 @@ const RoomCard = ({ room }) => {
           className="profile_img"
           src={room.hostId.avatar}
           alt="host avatar"
+          preview={false}
         />
       </div>
     </div>
@@ -93,7 +94,8 @@ const RoomCard = ({ room }) => {
                 width={35}
                 className="profile_img"
                 src={speaker.avatar}
-                alt="speaker avatar"
+                alt="speaker avatar" 
+                preview={false}
               />
             ))}
           </div>
