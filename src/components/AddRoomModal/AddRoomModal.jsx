@@ -7,7 +7,7 @@ import styles from "./AddRoomModal.module.css";
 
 const AddRoomModal = ({ onClose, onOpen }) => {
   const navigate = useNavigate();
-  const roomType= "public";
+  const roomType = "public";
 
   async function onFinish(values) {
     try {
@@ -21,7 +21,7 @@ const AddRoomModal = ({ onClose, onOpen }) => {
       console.log(err);
     }
     onClose();
-  };
+  }
 
   return (
     <Modal
@@ -95,12 +95,8 @@ const AddRoomModal = ({ onClose, onOpen }) => {
         </Form.Item>
         <Form.Item name="roomType" label="Select room type">
           <Radio.Group size="large">
-            <Radio.Button value="public" onClick={() => console.log(roomType)}>
-              Public
-            </Radio.Button>
-            <Radio.Button value="private" onClick={() => console.log(roomType)}>
-              Private
-            </Radio.Button>
+            <Radio.Button value="public">Public</Radio.Button>
+            <Radio.Button value="private">Private</Radio.Button>
           </Radio.Group>
         </Form.Item>
         <Form.Item

@@ -4,7 +4,7 @@ import Landing from './pages/Landing/Landing';
 import Authenticate from './pages/Authenticate/Authenticate';
 import Activate from './pages/Activate/Activate';
 import Home from './pages/Home/Home';
-import Room from './pages/Room/NewRooms';
+import Room from './pages/Room/Room';
 import Profile from './pages/Profile/Profile';
 import { useSelector } from 'react-redux';
 import { useLoadingWithRefresh } from './hooks/useLoadingWithRefresh';
