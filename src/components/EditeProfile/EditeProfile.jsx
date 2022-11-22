@@ -28,12 +28,11 @@ const EditeProfile = ({ onClose, onOpen }) => {
     try {
       if (!values) return;
       const { data } = await updateUser({userData: values});
-
+      onClose();
       dispatch(setAuth({user:data}));
     } catch (err) {
       console.log(err);
     }
-    onClose();
   };
 
   return (
@@ -49,14 +48,13 @@ const EditeProfile = ({ onClose, onOpen }) => {
           <Form
             name="basic"
             wrapperCol={{
+              span: 24,
+            }}
+            initialValues={{
               name: user?.name,
               location: user?.location,
               occupation: user?.occupation,
               bio: user?.bio,
-              span: 24,
-            }}
-            initialValues={{
-              remember: true,
             }}
             onFinish={onFinish}
             autoComplete="off"

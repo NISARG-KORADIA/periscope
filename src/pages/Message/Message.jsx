@@ -11,9 +11,7 @@ import ChatBox from "../../components/ChatBox/ChatBox";
 import { roomModalVisible } from "../../store/roomModalSlice";
 
 const Message = () => {
-  const [rooms, setRooms] = useState([]);
-  const { roomModalVisibility } = useSelector((state) => state.roomModal);
-  const dispatch = useDispatch();
+
 
   // useEffect(() => {
   //   const fetchRooms = async () => {
@@ -31,7 +29,7 @@ const Message = () => {
             margin: "2em",
             border: "2px #efe3ca solid",
             borderRadius: "8px",
-            minHeight: "80vh"
+            height: "94vh"
           }}
         >
           <Row>

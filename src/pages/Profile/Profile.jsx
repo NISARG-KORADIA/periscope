@@ -41,7 +41,7 @@ const Home = () => {
 
   function hideEditModal() {
     setIsEdit(false);
-    navigate()
+    fetchUser();
   }
 
   function showEditModal() {
@@ -116,7 +116,7 @@ const Home = () => {
               <Row>
                 <Button
                   size="large"
-                  className="bg_primary text_white blue_btn"
+                  className="pointer bg_primary text_white blue_btn"
                   onClick={() => setIsEdit(true)}
                 >
                   Edit Profile
@@ -126,7 +126,7 @@ const Home = () => {
             {userId !== authUser?.id && (
               <Row>
                 <div
-                  className="active_radio"
+                  className="pointer active_radio"
                   onClick={followingState}
                 >
                   <span style={{ fontWeight: "bold", fontSize: "18px" }}>
@@ -147,7 +147,7 @@ const Home = () => {
             style={{ height: "100vh" }}
           >
             <div style={{ padding: "1.5em" }}>
-              <div className="custom_radio">
+              <div className="pointer custom_radio">
                 <div
                   className={`${
                     socialUser === "followers"
