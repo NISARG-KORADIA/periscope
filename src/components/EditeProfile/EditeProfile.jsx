@@ -25,6 +25,7 @@ const EditeProfile = ({ onClose, onOpen }) => {
   }, [userId]);
 
   async function onFinish (values) {
+    console.log("values", values)
     try {
       if (!values) return;
       const { data } = await updateUser({userData: values});
