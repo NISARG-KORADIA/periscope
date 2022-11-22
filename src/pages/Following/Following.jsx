@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Row, Col } from "antd";
 import RoomCard from "../../components/RoomCard/RoomCard";
-import { getAllRooms } from "../../http";
+import { getAllRooms, getUser } from "../../http";
 import Layout from "../../layout/Layout/Index";
 import { useDispatch, useSelector } from "react-redux";
 import AddRoomModal from "../../components/AddRoomModal/AddRoomModal";
 import { roomModalVisible } from "../../store/roomModalSlice";
 
-const Home = () => {
+const Following = () => {
   const authUser = useSelector((state) => state.auth.user);
   const [rooms, setRooms] = useState([]);
   const { roomModalVisibility } = useSelector((state) => state.roomModal);
@@ -17,8 +17,16 @@ const Home = () => {
   useEffect(() => {
     const fetchRooms = async () => {
       const { data } = await getAllRooms();
-      console.log("data", data);
-      setRooms(data);
+
+      console.log("authUser", authUser);
+
+      const values = data?.filter((e) =>
+        authUser?.following?.includes(e?.hostId?.id)
+      );
+      // console.log("values", values);
+      // console.log("ttttt", authUser?.following?.map(e=>(e.id)));
+      // console.log("ooooo", data?.map(e=>(e.hostId.id)));
+      setRooms(values);
     };
     fetchRooms();
   }, []);
@@ -51,4 +59,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Following;

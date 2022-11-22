@@ -12,7 +12,6 @@ import { roomModalVisible } from "../../store/roomModalSlice";
 
 const Message = () => {
 
-
   // useEffect(() => {
   //   const fetchRooms = async () => {
   //     const { data } = await getRooms();
@@ -28,8 +27,7 @@ const Message = () => {
           style={{
             margin: "2em",
             border: "2px #efe3ca solid",
-            borderRadius: "8px",
-            height: "94vh"
+            height: "90vh"
           }}
         >
           <Row>

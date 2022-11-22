@@ -29,8 +29,8 @@ const EditeProfile = ({ onClose, onOpen }) => {
     try {
       if (!values) return;
       const { data } = await updateUser({userData: values});
-      onClose();
-      dispatch(setAuth({user:data}));
+      onClose(false)
+      // dispatch(setAuth({user:data}));
     } catch (err) {
       console.log(err);
     }

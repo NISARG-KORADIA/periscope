@@ -52,10 +52,10 @@ const Sider = () => {
       style={{ marginBottom: "2em", marginTop: "1em" }}
       onClick={goToProfile}
     >
-      <Col style={{ marginRight: "2em" }}>
+      <Col style={{ marginRight: "2em" }} className="pointer">
         <Image width={45} className="profile_img" src={image}  preview={false}/>
       </Col>
-      <Col className="profile_text">
+      <Col className="profile_text pointer">
         <Text className="text_black text_bold">{name}</Text>
         <Text className="text_gray text_regular_bold">{`@${userName}`}</Text>
       </Col>
@@ -70,8 +70,8 @@ const Sider = () => {
 
   const onClick = (e) => {
     if (e.key === "1") navigate(`/home`);
-    if (e.key === "2") navigate(`/home`);
-    if (e.key === "3") navigate(`/home`);
+    if (e.key === "2") navigate(`/popular`);
+    if (e.key === "3") navigate(`/following`);
     if (e.key === "4") navigate(`/message`);
     if (e.key === "5") logOutFunction();
   };

@@ -31,6 +31,7 @@ const Home = () => {
 
   const fetchUser = async () => {
     const { data } = await getUser(userId);
+    console.log("OIUYT", userId)
     setUser(data);
     setinFollowingList(data?.followers?.some((u) => u.id === authUser.id))
   };
@@ -209,7 +210,7 @@ const Profile = ({ user }) => (
     <Col xs={24} sm={24} md={12} lg={8} xl={8}>
       <div>
         {user?.avatar ? (
-          <Image width={180} className="profile_img" src={user?.avatar}  preview={false}/>
+          <Image width={180} className="profile_img" src={user?.avatar} />
         ) : (
           <Avatar />
         )}
