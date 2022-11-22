@@ -6,13 +6,16 @@ import {
   GlobalOutlined,
   LineChartOutlined,
   TeamOutlined,
-  SettingOutlined,
+  LogoutOutlined,
   UsergroupAddOutlined,
   CommentOutlined,
 } from "@ant-design/icons";
 import styles from "./Layout.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { roomModalVisible } from "../../store/roomModalSlice";
+import { logout } from "../../http";
+import { setAuth } from "../../store/authSlice";
+
 
 const { Text } = Typography;
 
@@ -37,7 +40,7 @@ const Sider = () => {
     getItem("Popular", "2", <LineChartOutlined />),
     getItem("Following", "3", <TeamOutlined />),
     getItem("Messages", "4", <CommentOutlined />),
-    getItem("Settings", "5", <SettingOutlined />),
+    getItem("Logout", "5", <LogoutOutlined />),
   ];
   function goToProfile() {
     navigate(`/profile/${user.id}`);
@@ -58,13 +61,19 @@ const Sider = () => {
       </Col>
     </Row>
   );
+
+  const logOutFunction = async () => {
+    dispatch(setAuth({user:null}));
+    localStorage.clear();
+    navigate('/')
+  }
+
   const onClick = (e) => {
-    // console.log(typeof(e.key));
     if (e.key === "1") navigate(`/home`);
     if (e.key === "2") navigate(`/home`);
     if (e.key === "3") navigate(`/home`);
     if (e.key === "4") navigate(`/message`);
-    if (e.key === "5") navigate(`/home`);
+    if (e.key === "5") logOutFunction();
   };
 
   return (
@@ -81,13 +90,13 @@ const Sider = () => {
         </Button>
       </Row>
       <Menu
+        className="pointer"
         onClick={onClick}
         mode="inline"
-        defaultSelectedKeys={["4"]}
+        defaultSelectedKeys={["1"]}
         items={items}
         style={{ marginBottom: "1em" }}
       />
-      {/* <Messages /> */}
     </>
   );
 };
