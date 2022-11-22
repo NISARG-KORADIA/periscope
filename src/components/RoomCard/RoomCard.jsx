@@ -63,6 +63,7 @@ const RoomCard = ({ room }) => {
           className="profile_img"
           src={room.hostId.avatar}
           alt="host avatar"
+          onClick={() => navigate(`/profile/${room.hostId.id}`)}
         />
       </div>
     </div>
@@ -94,6 +95,7 @@ const RoomCard = ({ room }) => {
                 className="profile_img"
                 src={speaker.avatar}
                 alt="speaker avatar"
+                onClick={() => navigate(`/profile/${speaker.id}`)}
               />
             ))}
           </div>

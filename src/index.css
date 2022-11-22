@@ -223,6 +223,10 @@ code {
   flex-direction: column;
 }
 
+.pointer{
+  cursor: pointer;
+}
+
 /* AntD class Modify */
 .ant-card-body {
   padding: 0px !important;
