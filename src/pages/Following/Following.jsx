@@ -23,9 +23,6 @@ const Following = () => {
       const values = data?.filter((e) =>
         authUser?.following?.includes(e?.hostId?.id)
       );
-      // console.log("values", values);
-      // console.log("ttttt", authUser?.following?.map(e=>(e.id)));
-      // console.log("ooooo", data?.map(e=>(e.hostId.id)));
       setRooms(values);
     };
     fetchRooms();
