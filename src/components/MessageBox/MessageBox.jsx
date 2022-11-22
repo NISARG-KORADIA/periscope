@@ -10,7 +10,7 @@ const ProfileMessage = () => {
   const { following } = useSelector((state) => state.auth.user);
 
   return (
-    <div style={{height:"100%"}}className="bg_primary_mid">
+    <div style={{height:"90vh"}} className="bg_primary_mid">
       <Row justify="space-between" style={{padding:"1em"}}>
         <Col flex={2}>
           <div>

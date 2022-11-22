@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import AddRoomModal from "../../components/AddRoomModal/AddRoomModal";
 import { roomModalVisible } from "../../store/roomModalSlice";
 
-const Home = () => {
+const Popular = () => {
   const authUser = useSelector((state) => state.auth.user);
   const [rooms, setRooms] = useState([]);
   const { roomModalVisibility } = useSelector((state) => state.roomModal);
@@ -17,7 +17,6 @@ const Home = () => {
   useEffect(() => {
     const fetchRooms = async () => {
       const { data } = await getAllRooms();
-      console.log("data", data);
       setRooms(data);
     };
     fetchRooms();
@@ -34,6 +33,7 @@ const Home = () => {
   return (
     <>
       <Layout>
+      Popular
         <div style={{ padding: "1em" }}>
           <Row gutter={[16, 16]}>
             {rooms.map((room) => (
@@ -51,4 +51,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Popular;

@@ -4,6 +4,8 @@ import Landing from './pages/Landing/Landing';
 import Authenticate from './pages/Authenticate/Authenticate';
 import Activate from './pages/Activate/Activate';
 import Home from './pages/Home/Home';
+import Following from './pages/Following/Following';
+import Popular from './pages/Popular/Popular';
 import Room from './pages/Room/Room';
 import Profile from './pages/Profile/Profile';
 import Message from './pages/Message/Message';
@@ -39,6 +41,16 @@ function App() {
         <Route path="/home" element={
           <UserRoute>
             <Home />
+          </UserRoute>
+        } />
+        <Route path="/following" element={
+          <UserRoute>
+            <Following />
+          </UserRoute>
+        } />
+        <Route path="/popular" element={
+          <UserRoute>
+            <Popular />
           </UserRoute>
         } />
         <Route path="/room/:id" element={
