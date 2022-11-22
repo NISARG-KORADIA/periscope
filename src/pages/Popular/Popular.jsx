@@ -17,7 +17,7 @@ const Popular = () => {
   useEffect(() => {
     const fetchRooms = async () => {
       const { data } = await getAllRooms();
-      setRooms(data);
+      setRooms(data.sort((a, b) => a.speakers.length - b.speakers.length));
     };
     fetchRooms();
   }, []);
@@ -33,7 +33,6 @@ const Popular = () => {
   return (
     <>
       <Layout>
-      Popular
         <div style={{ padding: "1em" }}>
           <Row gutter={[16, 16]}>
             {rooms.map((room) => (
